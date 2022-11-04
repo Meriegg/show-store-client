@@ -88,7 +88,7 @@ const Product: NextPage = () => {
           ]}
         />
         <CopyToClipboard
-          text={`https://showstore.vercel.app/product/${product._id}`}
+          text={`https://show-store.vercel.app/product/${product._id}`}
           onCopy={() => {
             setCopied(true);
             setTimeout(() => {
