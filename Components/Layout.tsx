@@ -51,7 +51,7 @@ const Layout = ({ children }: Props) => {
   return (
     <>
       <Head>
-        <title>Shot Store | MarioDev</title>
+        <title>Show Store | MarioDev</title>
       </Head>
       <PrototypeAlert />
       <AdminMenu />
