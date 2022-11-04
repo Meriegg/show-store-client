@@ -4,6 +4,7 @@ import styles from "@styles/Pages/Product.module.scss";
 import Dropdown from "@components/Ui/Dropdown";
 import BreadCrumbs from "@components/Ui/BreadCrumbs";
 import ProductTypes from "@components/Pages/Store/ProductTypes";
+import { PRODUCT_SIZES } from "@rootDir/constants";
 import { useSelector } from "react-redux";
 import { RootState } from "@rootDir/types";
 import { addProduct } from "@rootDir/redux/cart/cartSlice";
@@ -133,10 +134,10 @@ const Product: NextPage = () => {
               label={"Select a size!"}
               onChange={setDropdownVal}
               value={dropdownVal}
-              options={[
-                { label: "Option 1", value: "Option1" },
-                { label: "Option 2", value: "Option2" },
-              ]}
+              options={PRODUCT_SIZES.map((product) => ({
+                label: product,
+                value: product,
+              }))}
             />
 
             <div className={styles.infoSelect_quantitySelect}>

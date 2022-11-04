@@ -3,6 +3,7 @@ import Link from "@components/Ui/Link";
 import Modal, { showModal, closeModal } from "@components/Ui/Modal";
 import Dropdown from "@components/Ui/Dropdown";
 import ProductTypes from "./ProductTypes";
+import { PRODUCT_SIZES } from "@rootDir/constants";
 import { addProduct } from "@rootDir/redux/cart/cartSlice";
 import { useDispatch } from "react-redux";
 import { Cart } from "react-ionicons";
@@ -31,10 +32,10 @@ const Product = ({ product, isCartBtnDisabled }: Props) => {
           label={"Select a size!"}
           onChange={setModalDropdownVal}
           value={modalDropdownVal}
-          options={[
-            { label: "Option 1", value: "Option1" },
-            { label: "Option 2", value: "Option2" },
-          ]}
+          options={PRODUCT_SIZES.map((product) => ({
+            label: product,
+            value: product,
+          }))}
         />
         <ButtonFill
           style={{ marginTop: "10px", width: "100%" }}

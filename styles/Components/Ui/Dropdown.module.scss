@@ -48,6 +48,8 @@
   transform-origin: top;
   border: 1px solid;
   border-top: none;
+  max-height: 250px;
+  overflow-y: scroll;
 
   &_option {
     padding: 20px 10px;
@@ -66,12 +68,31 @@
   &_closed {
     z-index: -10;
     opacity: 0;
-    transform: scaleY(0.5);
+    transform: scaleY(0);
   }
 
   &_open {
     z-index: 20;
     opacity: 1;
     transform: scaleY(1);
+  }
+
+  // Google-like scrollbar ._.
+  &::-webkit-scrollbar {
+    width: 10px;
+  }
+
+  &::-webkit-scrollbar-track {
+    border-radius: 10px;
+    background: transparent;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background: rgba(0, 0, 0, 0.3);
+    border-radius: 10px;
+  }
+
+  &::-webkit-scrollbar-thumb:hover {
+    background: rgba(0, 0, 0, 0.4);
   }
 }

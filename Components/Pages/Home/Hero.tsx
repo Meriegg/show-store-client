@@ -1,4 +1,5 @@
 import styles from "@styles/Pages/Home.module.scss";
+import Link from "next/link";
 import { ButtonFill, ButtonOutline } from "@components/Ui/Button";
 
 const Hero = () => {
@@ -12,8 +13,12 @@ const Hero = () => {
         </p>
 
         <div className={styles.hero_left_buttonContainer}>
-          <ButtonFill>Shop Now</ButtonFill>
-          <ButtonOutline>Contact Us</ButtonOutline>
+          <Link href="/store">
+            <ButtonFill>Shop Now</ButtonFill>
+          </Link>
+          <Link href={"/contact"}>
+            <ButtonOutline>Contact Us</ButtonOutline>
+          </Link>
         </div>
       </div>
 

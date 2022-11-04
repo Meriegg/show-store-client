@@ -50,7 +50,7 @@ const Explore = () => {
       {isMobile ? (
         <div className={styles.explore_mobileCategories}>
           {Array.from(new Array(itemNumber)).map((_, itemIdx) => (
-            <div key={itemIdx}>Item</div>
+            <div key={itemIdx}>PLACEHOLDER</div>
           ))}
         </div>
       ) : (

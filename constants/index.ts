@@ -3,6 +3,19 @@
     THIS FILE IS HERE FOR DEMO PURPOSES.
 */
 
+export const PRODUCT_SIZES = [
+  "3XS",
+  "XXS",
+  "XS",
+  "S",
+  "M",
+  "L",
+  "XL",
+  "XXL",
+  "3XL",
+  "4XL",
+];
+
 export const PRODUCT_TYPES = [
   "sneakers",
   "trainers",
