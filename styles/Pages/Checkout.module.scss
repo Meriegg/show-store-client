@@ -1,0 +1,81 @@
+@import "../abstracts/variables";
+@import "../abstracts/functions";
+
+.main {
+  max-width: 500px;
+  margin: auto;
+  padding: 10px;
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+
+  &_top {
+    display: inline-flex;
+    gap: 15px;
+
+    * {
+      flex-grow: 1;
+    }
+  }
+
+  &_bottom {
+    display: inline-flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+  }
+}
+
+.header {
+  margin: 20px 0;
+
+  h1 {
+    text-align: center;
+    margin: 0;
+  }
+
+  p {
+    font-size: 0.875rem;
+    text-align: center;
+    color: $text-secondary;
+  }
+}
+
+.modalContent {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+
+  * {
+    margin: 0;
+  }
+
+  p {
+    font-size: 0.875rem;
+  }
+
+  &_orderID {
+    color: $error-red;
+    font-weight: GetFontWeight("bold");
+    font-size: 1rem !important;
+  }
+
+  div {
+    margin-top: 15px;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-evenly;
+    gap: 10px;
+
+    * {
+      flex-grow: 1;
+    }
+
+    [data-copy-order-id] {
+      background: $error-red;
+    }
+  }
+}

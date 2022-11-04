@@ -1,0 +1,19 @@
+$text-primary: #000;
+$main-bg: #fff;
+$text-secondary: #374151;
+$dark-accent: rgba(0, 0, 0, 0.1);
+$error-red-opaque: rgba(239, 68, 68, 0.2);
+$error-red: rgba(239, 68, 68);
+
+$font-weights: (
+  "medium": 500,
+  "bold": 700,
+);
+
+$breakpoints: (
+  "desktop": 1440px,
+  "tablet": 728px,
+  "phone": 430px,
+);
+
+$default-letter-spacing: -0.03em;

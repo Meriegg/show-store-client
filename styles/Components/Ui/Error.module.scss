@@ -1,0 +1,64 @@
+@import "../../abstracts/variables";
+
+.mainContainer {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 55px;
+  text-align: center;
+  padding: 100px 10px;
+  background: $error-red-opaque;
+  border-radius: 15px;
+}
+
+.header {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 15px;
+
+  h1 {
+    font-size: 1.5rem;
+    color: $error-red;
+    margin: 0;
+  }
+
+  p {
+    color: $error-red;
+    margin: 0;
+    font-size: 0.875rem;
+  }
+}
+
+.data {
+  button {
+    background: $error-red;
+  }
+
+  &_errorContainer {
+    margin-top: 25px;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    gap: 5px;
+
+    &::before {
+      content: "";
+      width: 100%;
+      height: 1px;
+      background: $error-red;
+      top: -10px;
+      left: 0;
+      position: absolute;
+    }
+
+    * {
+      color: $error-red;
+      margin: 0;
+    }
+  }
+}

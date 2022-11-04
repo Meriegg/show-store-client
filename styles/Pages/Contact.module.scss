@@ -1,0 +1,82 @@
+@import "../abstracts/variables";
+@import "../abstracts/functions";
+@import "../abstracts/mixins";
+
+.main {
+  padding: 20px 40px;
+  @include mq("tablet") {
+    padding: 20px 20px;
+  }
+
+  h1 {
+    font-size: 1.5rem;
+  }
+
+  &_mainEmail {
+    font-size: 3rem;
+    margin: 40px 0;
+    font-weight: GetFontWeight("bold");
+    transition: all 0.3s ease;
+    cursor: pointer;
+    color: $text-secondary;
+    word-wrap: break-word;
+    @include mq("tablet") {
+      font-size: 2rem;
+    }
+    @include mq("phone") {
+      font-size: 1.5rem;
+    }
+
+    &:hover {
+      color: $text-primary;
+    }
+  }
+}
+
+.socials {
+  position: relative;
+  width: fit-content;
+  margin-top: 25px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+
+  &_linkContainer {
+    position: relative;
+
+    a {
+      font-size: 1rem;
+      font-weight: GetFontWeight("medium");
+      margin: 0;
+    }
+
+    &_separator {
+      position: absolute;
+      height: 100%;
+      width: 1px;
+      left: -13px;
+      top: 0;
+      background: $text-secondary;
+    }
+
+    [data-last-separator="true"] {
+      left: 120%;
+    }
+  }
+
+  &_links {
+    display: flex;
+    width: 100%;
+    flex-wrap: wrap;
+    gap: 25px;
+    padding: 0px 15px;
+  }
+
+  [data-separator] {
+    height: 1px;
+    width: 100%;
+    left: 0;
+    background: $text-secondary;
+    top: -55%;
+  }
+}

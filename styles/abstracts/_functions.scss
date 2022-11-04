@@ -1,0 +1,9 @@
+@import "./variables";
+
+@function GetFontWeight($weight: "bold") {
+  @return map-get($map: $font-weights, $key: to-lower-case($weight));
+}
+
+@function GetBreakpoint($bp: "desktop") {
+  @return map-get($map: $breakpoints, $key: to-lower-case($bp));
+}

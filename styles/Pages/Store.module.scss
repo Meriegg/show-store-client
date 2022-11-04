@@ -1,0 +1,27 @@
+@import "../abstracts/variables";
+@import "../abstracts/functions";
+@import "../abstracts/mixins";
+
+.mainLayout {
+  display: flex;
+  // flex-wrap: wrap;
+  height: 100%;
+  @include mq("tablet") {
+    display: flex;
+    flex-direction: column;
+
+    * {
+      width: 100% !important;
+    }
+  }
+
+  &_left {
+    width: min(230px, 100%);
+  }
+
+  &_right {
+    flex-grow: 1;
+    border-left: 1px solid;
+    height: fit-content;
+  }
+}

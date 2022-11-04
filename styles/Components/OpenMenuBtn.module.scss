@@ -1,0 +1,61 @@
+@import "../abstracts/mixins";
+@import "../abstracts/variables";
+
+.openMenuBtn {
+  display: none;
+  border: none;
+  background: none;
+  cursor: pointer;
+  height: 30px;
+  align-items: center;
+
+  &_line {
+    width: 25px;
+    height: 2px;
+    background-color: $text-primary;
+    position: relative;
+    transition: all 0.3s ease;
+
+    &::after,
+    &::before {
+      content: "";
+      position: absolute;
+      width: 100%;
+      height: 2px;
+      background: $text-primary;
+      left: 0;
+      top: 0;
+      transition: all 0.3s ease;
+    }
+
+    &::before {
+      transform: translateY(-7px);
+    }
+
+    &::after {
+      transform: translateY(7px);
+    }
+  }
+
+  @include mq("tablet") {
+    display: flex;
+  }
+}
+
+.openMenuBtnOpen {
+  &_line {
+    background: transparent;
+
+    &::after {
+      transform: rotate(45deg);
+    }
+
+    &::before {
+      transform: rotate(-45deg);
+    }
+
+    @extend .openMenuBtn_line;
+  }
+
+  @extend .openMenuBtn;
+}

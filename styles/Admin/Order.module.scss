@@ -1,0 +1,61 @@
+@import "../abstracts/variables";
+@import "../abstracts/functions";
+
+.order {
+  $opaque-bg: rgba(150, 150, 150, 0.1);
+
+  padding: 25px 20px;
+  border: 1px solid $opaque-bg;
+  border-radius: 10px;
+  background: $opaque-bg;
+  width: min(400px, 100%);
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+
+  &_id {
+    color: $error-red !important;
+    font-weight: GetFontWeight("bold");
+  }
+
+  [data-view-order-btn] {
+    background-color: $error-red;
+    color: $main-bg !important;
+  }
+
+  * {
+    color: $text-secondary;
+    margin: 0;
+  }
+}
+
+.orderContents {
+  max-height: 75vh;
+  overflow-y: scroll;
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+
+  p {
+    margin: 0;
+  }
+
+  // Google-like scrollbar ._.
+  &::-webkit-scrollbar {
+    width: 10px;
+  }
+
+  &::-webkit-scrollbar-track {
+    border-radius: 10px;
+    background: transparent;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background: rgba(0, 0, 0, 0.3);
+    border-radius: 10px;
+  }
+
+  &::-webkit-scrollbar-thumb:hover {
+    background: rgba(0, 0, 0, 0.4);
+  }
+}

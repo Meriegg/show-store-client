@@ -1,0 +1,72 @@
+@import "../abstracts/variables";
+@import "../abstracts/mixins";
+
+.navContainer {
+  display: flex;
+  flex-wrap: wrap;
+  width: 100%;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 40px;
+  border-bottom: 1px solid $text-primary;
+  position: sticky;
+  top: 0;
+  background: $main-bg;
+  z-index: 40;
+
+  @include mq("tablet") {
+    padding: 10px 20px;
+  }
+}
+
+.left {
+  display: flex;
+  align-items: center;
+  gap: 35px;
+
+  nav {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 35px;
+
+    * {
+      font-size: 0.875rem;
+    }
+
+    *[data-active-page="true"] {
+      color: $text-primary;
+
+      &::after {
+        transform: scaleX(1);
+      }
+    }
+
+    @include mq("tablet") {
+      display: none;
+    }
+  }
+
+  @include mq("tablet") {
+    gap: 15px;
+  }
+}
+
+.right {
+  &_cartIcon {
+    fill: #000;
+    transition: all 0.3s ease;
+  }
+
+  button {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+
+    &:hover {
+      .right_cartIcon {
+        fill: #fff;
+      }
+    }
+  }
+}

@@ -1,0 +1,13 @@
+@import "./functions";
+
+@mixin mq($bp: "desktop") {
+  @media screen and (max-width: GetBreakpoint($bp)) {
+    @content;
+  }
+}
+
+@mixin customMq($breakpointInPx) {
+  @media screen and (max-width: $breakpointInPx) {
+    @content;
+  }
+}

@@ -1,0 +1,63 @@
+@import "../abstracts/variables";
+@import "../abstracts/mixins";
+@import "../abstracts/functions";
+
+.alert {
+  position: absolute;
+  right: 30px;
+  bottom: 30px;
+  z-index: 9999999999999;
+  display: flex;
+  transition: all 0.3s ease;
+  width: min(410px, 100%);
+  height: fit-content;
+  background-color: $main-bg;
+  overflow: hidden;
+  border-radius: 10px;
+  border: 1px solid $text-primary;
+  @include mq("tablet") {
+    left: 10px;
+    top: 10px;
+  }
+  @include mq("phone") {
+    left: 50%;
+    transform: translateX(-50%);
+  }
+
+  &_left {
+    height: auto;
+    padding: 0 30px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: $text-primary;
+
+    p {
+      color: $main-bg;
+      font-size: 2rem;
+      margin: 0;
+    }
+  }
+
+  &_right {
+    padding: 10px 10px;
+
+    &_buttons {
+      width: 100%;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 15px;
+
+      * {
+        flex-grow: 1;
+      }
+    }
+
+    p {
+      font-size: 0.875rem;
+      font-weight: GetFontWeight("bold");
+      margin: 0;
+      padding: 15px 0;
+    }
+  }
+}

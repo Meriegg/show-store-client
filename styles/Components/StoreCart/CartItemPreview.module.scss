@@ -1,0 +1,32 @@
+@import "../../abstracts/functions";
+
+.main {
+  width: min(505px, 100%);
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  justify-content: space-between;
+
+  &_left {
+    p {
+      margin: 0;
+      font-weight: GetFontWeight("bold");
+    }
+  }
+
+  &_left,
+  &_right {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+
+    [data-remove-btn] {
+      background: $error-red;
+    }
+  }
+}
+
+.mainImage {
+  max-height: 50px;
+  width: auto;
+}

@@ -1,0 +1,19 @@
+@mixin itemBaseStyle($gap: 10px) {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: $gap;
+}
+
+.mainContainer {
+  @include itemBaseStyle();
+}
+
+.item {
+  @include itemBaseStyle();
+
+  &_separator {
+    pointer-events: none;
+    text-align: center;
+  }
+}

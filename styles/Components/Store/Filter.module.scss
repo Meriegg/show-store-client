@@ -1,0 +1,193 @@
+@import "../../abstracts/functions";
+@import "../../abstracts/variables";
+@import "../../abstracts/mixins";
+
+.mainContainer {
+  height: 100%;
+  overflow-y: hidden;
+
+  &_header {
+    width: 100%;
+    border-bottom: 1px solid;
+    padding: 25px 30px;
+    @include mq("tablet") {
+      display: flex;
+      justify-content: space-between;
+    }
+
+    p {
+      font-size: 1rem;
+      color: $text-primary;
+      font-weight: GetFontWeight("bold");
+    }
+  }
+}
+
+.filter {
+  padding: 25px;
+  height: 100%;
+  transition: all 0.3s ease;
+
+  &_closed {
+    padding: 0;
+    height: 0;
+    opacity: 0;
+    overflow: hidden;
+  }
+
+  &_open {
+    height: auto;
+    opacity: 1;
+  }
+
+  &_price {
+    display: flex;
+    flex-direction: column;
+    gap: -10px;
+
+    &_label {
+      font-size: 1rem;
+      color: $text-secondary;
+      font-weight: GetFontWeight("bold");
+      margin-bottom: 25px;
+    }
+
+    input[type="range"] {
+      -webkit-appearance: none;
+    }
+
+    input[type="range"]:focus {
+      outline: none;
+    }
+
+    // Background of slider
+    input[type="range"]::-webkit-slider-runnable-track {
+      background: $text-primary;
+      border-radius: 10000px;
+    }
+
+    // Tracking circle
+    input[type="range"]::-webkit-slider-thumb {
+      -webkit-appearance: none !important;
+      height: 15px;
+      width: 15px;
+      border-radius: 1000px;
+      background-color: $text-primary !important;
+      border: 2px solid $main-bg;
+      cursor: pointer;
+    }
+
+    &_value {
+      width: 100%;
+      display: flex;
+      justify-content: space-between;
+
+      p {
+        font-size: 0.875rem;
+        color: $text-primary;
+        font-weight: GetFontWeight("bold");
+      }
+    }
+  }
+
+  &_types {
+    p {
+      font-size: 1rem;
+      font-weight: GetFontWeight("bold");
+      color: $text-secondary;
+    }
+
+    &_type {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+
+      p {
+        color: $text-primary;
+      }
+    }
+
+    &_addTypeBtn {
+      border: 2px solid $text-primary;
+      border-radius: 10px;
+      background: none;
+      cursor: pointer;
+      max-width: 30px;
+      min-height: 30px;
+      width: 30px;
+      height: 30px;
+      transition: all 0.3s ease;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+
+      &:hover {
+        transform: scale(1.05);
+      }
+
+      div {
+        position: relative;
+        width: 100%;
+        transform: scale(0.8) rotate(180deg);
+        opacity: 0;
+        transition: all 0.3s ease;
+
+        &::before,
+        &::after {
+          content: "";
+          width: 15px;
+          height: 2px;
+          background: $text-primary;
+          position: absolute;
+          left: 0;
+          top: 0;
+          border-radius: 10000px;
+        }
+
+        &::before {
+          transform: rotate(-45deg);
+        }
+
+        &::after {
+          transform: rotate(45deg);
+        }
+      }
+    }
+
+    &_addTypeBtnAdded {
+      div {
+        opacity: 1;
+        transform: rotate(0) scale(1);
+      }
+    }
+  }
+}
+
+.openFilterBtn {
+  display: none;
+  background: none;
+  border: none;
+  justify-content: flex-end;
+  align-items: center;
+  @include mq("tablet") {
+    display: flex;
+  }
+
+  span {
+    width: 25px !important;
+    transition: all 0.3s ease;
+    transform-origin: 50% 50%;
+  }
+
+  &_closed {
+    span {
+      transform: rotate(0deg);
+    }
+  }
+
+  &_open {
+    span {
+      transform: rotate(180deg);
+    }
+  }
+}

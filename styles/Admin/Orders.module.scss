@@ -1,0 +1,13 @@
+.orders {
+  display: flex;
+  gap: 15px;
+  flex-wrap: wrap;
+  justify-content: space-evenly;
+  margin-top: 15px;
+}
+
+.inputGroup {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 15px;
+}

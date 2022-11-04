@@ -1,0 +1,43 @@
+@import "../abstracts/variables";
+@import "../abstracts/functions";
+
+.menu {
+  opacity: 0;
+  display: flex;
+  justify-content: center;
+  position: fixed;
+  z-index: -20;
+  height: 100%;
+  width: 100%;
+  background: $main-bg;
+  transition: all 0.3s ease;
+  transform: translateY(15px);
+
+  nav {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 40px;
+    margin-top: 20px;
+
+    * {
+      font-size: 1.125rem;
+    }
+  }
+
+  &_credentials {
+    position: absolute;
+    font-size: 0.875rem;
+    font-weight: GetFontWeight("bold");
+    bottom: 115px;
+    left: 15px;
+  }
+
+  &_open {
+    opacity: 1;
+    z-index: 20;
+    transform: translateY(0px);
+
+    @extend .menu;
+  }
+}

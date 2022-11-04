@@ -1,0 +1,50 @@
+@import "../../abstracts/variables";
+@import "../../abstracts/functions";
+
+.button {
+  &:hover:not(:disabled),
+  &:focus:not(:disabled) {
+    transform: translateY(-3px);
+  }
+
+  &:active:not(:disabled) {
+    transition: all 0.01s ease;
+    transform: translateY(3px);
+  }
+
+  &:disabled {
+    cursor: not-allowed;
+    opacity: 0.6;
+  }
+}
+
+.buttonFill {
+  border-radius: 5px;
+  background: $text-primary;
+  color: $main-bg;
+  cursor: pointer;
+  font-weight: GetFontWeight("bold");
+  padding: 10px 25px;
+  font-size: 0.875rem;
+  transition: all 0.3s ease;
+  border: none;
+  @extend .button;
+}
+
+.buttonOutline {
+  border-radius: 5px;
+  background: none;
+  color: $text-primary;
+  cursor: pointer;
+  font-weight: GetFontWeight("bold");
+  padding: 10px 25px;
+  font-size: 0.875rem;
+  border: 2px solid $text-primary;
+  transition: all 0.3s ease;
+  @extend .button;
+
+  &:hover {
+    background: $text-primary;
+    color: $main-bg;
+  }
+}

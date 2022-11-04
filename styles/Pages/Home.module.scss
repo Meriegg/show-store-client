@@ -1,0 +1,350 @@
+@import "../abstracts/variables";
+@import "../abstracts/functions";
+@import "../abstracts/mixins";
+
+@mixin containerPadding($topPadding: 0) {
+  padding: $topPadding 40px;
+
+  @include mq("tablet") {
+    padding: $topPadding 20px;
+  }
+}
+
+.hero {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  height: 100vh;
+  position: relative;
+  @include containerPadding();
+
+  &_wordsContainer {
+    position: absolute;
+    display: flex;
+    gap: 10px;
+    top: 0;
+    z-index: -10;
+
+    &_row {
+      display: flex;
+      flex-direction: column;
+
+      * {
+        transform: rotate(90deg);
+      }
+    }
+  }
+
+  &_left {
+    width: fit-content;
+    max-width: 430px;
+    padding-top: 60px;
+
+    h1 {
+      font-size: 3rem;
+      font-weight: GetFontWeight("bold");
+      margin: 0;
+    }
+
+    p {
+      font-size: 0.875rem;
+      mix-blend-mode: darken;
+    }
+
+    &_buttonContainer {
+      margin-top: 45px;
+      width: fit-content;
+      display: flex;
+      flex-wrap: wrap;
+      position: relative;
+      gap: 10px;
+
+      * {
+        margin-top: 10px;
+      }
+
+      &::before {
+        content: "";
+        width: 100%;
+        height: 1px;
+        position: absolute;
+        top: 0;
+        left: 0;
+        background-color: $text-primary;
+      }
+    }
+  }
+
+  &_right {
+    width: 100%;
+    height: 105%;
+    position: absolute;
+    top: -5%;
+    right: -25%;
+
+    background-image: linear-gradient(0deg, #000 15%, transparent),
+      url("../../public/shoe-1.png");
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: bottom;
+    clip-path: url("#imageClip");
+  }
+}
+
+.ourBrand {
+  width: 100%;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+
+  &_content {
+    padding: 140px 40px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+
+    @include mq("tablet") {
+      padding: 140px 20px;
+    }
+  }
+
+  &_verticalLine {
+    position: absolute;
+    height: 100%;
+    width: 1px;
+    background: $text-primary;
+    left: 80%;
+
+    @include mq("tablet") {
+      left: 95%;
+    }
+  }
+
+  &::before,
+  &::after {
+    content: "";
+    width: 200%;
+    height: 1px;
+    background: $text-primary;
+  }
+
+  &_decorator {
+    position: absolute;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+
+    * {
+      color: rgba(0, 0, 0, 0.2);
+      font-size: 6rem;
+      font-weight: GetFontWeight("bold");
+      margin: 0;
+    }
+  }
+
+  &_info {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    margin-top: 50px;
+
+    h2 {
+      font-size: 2rem;
+      font-weight: GetFontWeight("bold");
+      color: $text-primary;
+      display: flex;
+      align-items: center;
+      gap: 20px;
+      margin: 0;
+    }
+
+    p {
+      max-width: 600px;
+      margin: 0;
+      color: $text-secondary;
+      font-size: 0.875rem;
+    }
+
+    &_decorator {
+      font-size: 4rem;
+      color: rgba(0, 0, 0, 0.2);
+    }
+  }
+
+  h1 {
+    font-size: 2.25rem;
+    position: relative;
+    width: fit-content;
+
+    &::after {
+      content: "";
+      width: 60px;
+      height: 4px;
+      position: absolute;
+      background: $text-primary;
+      left: 0;
+      top: 100%;
+    }
+  }
+}
+
+.explore {
+  display: flex;
+  justify-content: center;
+  margin-top: 150px;
+  flex-direction: column;
+  @include containerPadding(150px);
+
+  &_categories {
+    display: inline-flex;
+    width: 150vw;
+
+    * {
+      padding: 20px 0px;
+      flex-grow: 1;
+      text-align: center;
+      border: 1px solid;
+      border-left-color: transparent;
+      cursor: pointer;
+      transition: all 0.3s ease;
+
+      &:hover {
+        background-color: $text-primary;
+        color: $main-bg;
+      }
+
+      &:first-child {
+        border-left-color: $text-primary;
+      }
+    }
+  }
+
+  &_mobileCategories {
+    display: flex;
+    width: 100%;
+    flex-wrap: wrap;
+    justify-content: space-evenly;
+
+    * {
+      padding: 20px 120px;
+      border: 1px solid;
+      text-align: center;
+      flex-grow: 1;
+    }
+  }
+
+  h1 {
+    font-size: 2.5rem;
+  }
+}
+
+.newsLetter {
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  position: relative;
+  padding: 5px;
+
+  h1 {
+    font-size: 3rem;
+    margin: 0;
+    text-align: center;
+  }
+
+  p {
+    font-size: 0.875rem;
+    font-weight: GetFontWeight("bold");
+    text-align: center;
+  }
+
+  &::before,
+  &::after {
+    content: "";
+    width: 200%;
+    height: 1px;
+    background: $text-primary;
+  }
+
+  &_verticalLine {
+    height: 120%;
+    width: 1px;
+    background: $text-primary;
+    position: absolute;
+    z-index: 30;
+    left: 130px;
+
+    @include mq("tablet") {
+      left: 50px;
+    }
+
+    @include mq("phone") {
+      display: none;
+    }
+  }
+
+  &_content {
+    padding: 200px 0;
+  }
+
+  &_form {
+    display: flex;
+    align-items: flex-start;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-top: 50px;
+    width: 100%;
+    justify-content: center;
+
+    &_inputContainer {
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-start;
+      flex-wrap: wrap;
+      gap: 5px;
+      width: min(350px, 100%);
+
+      input {
+        background: none;
+        border: 1px solid;
+        padding: 20px 35px;
+        border-radius: 999px;
+        font-size: 0.875rem;
+        font-weight: GetFontWeight("bold");
+        width: 100%;
+
+        &:focus {
+          outline: none;
+        }
+      }
+    }
+
+    &_error {
+      color: rgb(198, 0, 0);
+      margin: 0;
+    }
+  }
+}
+
+.animateHeroWordRow {
+  animation: forwards 3s ease wordsRowAnimation;
+}
+
+@keyframes wordsRowAnimation {
+  0% {
+    transform: translateY(0px);
+  }
+
+  50% {
+    transform: translateY(100px);
+  }
+
+  100% {
+    transform: translateY(0px);
+  }
+}

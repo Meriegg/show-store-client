@@ -1,0 +1,29 @@
+@import "../abstracts/variables";
+@import "../abstracts/functions";
+@import "../abstracts/mixins";
+
+.main {
+  position: absolute;
+  width: min(500px, 100%);
+  top: 100px;
+  right: 40px;
+  z-index: 100000;
+  background: $main-bg;
+  box-shadow: rgba(149, 157, 165, 0.05) 0px 8px 20px;
+  padding: 20px;
+  border-radius: 5px;
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: column;
+  border: 1px solid;
+  gap: 15px;
+  @include mq("tablet") {
+    left: 50%;
+    transform: translateX(-50%);
+    right: auto;
+  }
+
+  &_header {
+    font-weight: GetFontWeight("bold");
+  }
+}

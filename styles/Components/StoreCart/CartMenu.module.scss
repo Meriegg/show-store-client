@@ -1,0 +1,133 @@
+@import "../../abstracts/variables";
+@import "../../abstracts/functions";
+
+.mainOverlay {
+  position: fixed;
+  right: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: flex-end;
+  transition: all 0.3s ease;
+
+  &_closed {
+    opacity: 0;
+    z-index: -999;
+  }
+
+  &_open {
+    z-index: 99999999999999999;
+    background: rgba(0, 0, 0, 0.6);
+    opacity: 1;
+  }
+}
+
+.mainCart {
+  height: 100%;
+  width: min(470px, 100%);
+  background: $main-bg;
+  transition: all 0.3s ease;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+
+  p {
+    margin: 0;
+  }
+
+  &_top {
+    height: 100%;
+  }
+
+  &_closed {
+    transform: translateX(100%);
+  }
+
+  &_open {
+    transform: translateX(0);
+  }
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+
+  p {
+    font-weight: GetFontWeight("bold");
+    font-size: 1.125rem;
+  }
+
+  button {
+    background: none;
+    border: none;
+    cursor: pointer;
+  }
+}
+
+.productsContainer {
+  max-height: 75vh;
+  width: 100%;
+  padding: 20px 0;
+  overflow-y: scroll;
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
+
+  // Google-like scrollbar ._.
+  &::-webkit-scrollbar {
+    width: 10px;
+  }
+
+  &::-webkit-scrollbar-track {
+    border-radius: 10px;
+    background: transparent;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background: rgba(0, 0, 0, 0.3);
+    border-radius: 10px;
+  }
+
+  &::-webkit-scrollbar-thumb:hover {
+    background: rgba(0, 0, 0, 0.4);
+  }
+}
+
+.noProductsWarning {
+  width: 100%;
+  text-align: center;
+  font-weight: GetFontWeight("bold");
+  color: $text-secondary;
+}
+
+.totalPrice {
+  margin: 10px 0;
+  position: relative;
+
+  &::before {
+    content: "";
+    width: 100%;
+    height: 1px;
+    background: $text-primary;
+    position: absolute;
+    left: 0;
+    top: -10px;
+  }
+
+  &_top {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+  }
+
+  &_price {
+    font-weight: GetFontWeight("bold");
+  }
+
+  &_total {
+    font-weight: GetFontWeight("bold");
+    color: $error-red;
+  }
+}

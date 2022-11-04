@@ -1,0 +1,40 @@
+@import "../../abstracts/variables";
+@import "../../abstracts/functions";
+
+.modalContainer {
+  position: fixed;
+  height: 100%;
+  width: 100%;
+  background: rgba(0, 0, 0, 0.6);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 9999999999999999999999999999999999999999999999999999999999999999999999999999999999;
+}
+
+.modal {
+  width: min(530px, 100%);
+  padding: 25px 30px;
+  border-radius: 10px;
+  background: $main-bg;
+  margin: 10px;
+}
+
+.header {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 10px;
+
+  button {
+    background: none;
+    border: none;
+    cursor: pointer;
+  }
+
+  p {
+    margin: 0;
+    font-size: 1.125rem;
+    font-weight: GetFontWeight("bold");
+  }
+}

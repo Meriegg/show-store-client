@@ -1,0 +1,77 @@
+@import "../../abstracts/functions";
+@import "../../abstracts/variables";
+
+.main {
+  position: relative;
+}
+
+.label {
+  border: 1px solid;
+  padding: 5px 25px;
+  cursor: pointer;
+  display: flex;
+  background: none;
+  width: 100%;
+  justify-content: space-between;
+  align-items: center;
+
+  &:focus {
+    outline: none;
+  }
+
+  p {
+    font-weight: GetFontWeight("bold");
+    pointer-events: none;
+  }
+}
+
+.labelIcon {
+  transition: all 0.15s ease;
+
+  &_open {
+    transform: rotate(180deg);
+  }
+
+  &_closed {
+    transform: rotate(0);
+  }
+}
+
+.options {
+  transition: all 0.15s ease;
+  position: absolute;
+  left: 0;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  background: $main-bg;
+  transform-origin: top;
+  border: 1px solid;
+  border-top: none;
+
+  &_option {
+    padding: 20px 10px;
+    text-align: left;
+    cursor: pointer;
+    border: none;
+    background: none;
+    font-weight: GetFontWeight("bold");
+    font-size: 0.875rem;
+
+    &:hover {
+      background: rgba(0, 0, 0, 0.1);
+    }
+  }
+
+  &_closed {
+    z-index: -10;
+    opacity: 0;
+    transform: scaleY(0.5);
+  }
+
+  &_open {
+    z-index: 20;
+    opacity: 1;
+    transform: scaleY(1);
+  }
+}

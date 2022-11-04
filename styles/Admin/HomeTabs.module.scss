@@ -1,0 +1,40 @@
+@import "../abstracts/functions";
+
+.tabBtns {
+  display: flex;
+  margin-top: 15px;
+  gap: 15px;
+
+  button {
+    background: none;
+    border: none;
+    position: relative;
+    cursor: pointer;
+    font-size: 1.125rem;
+    font-weight: GetFontWeight("bold");
+    margin-top: 1rem;
+
+    &::after {
+      content: "";
+      position: absolute;
+      top: 100%;
+      left: 0;
+      width: 100%;
+      height: 1px;
+      background: #000;
+      transition: all 0.3s ease;
+    }
+  }
+
+  [data-is-active="true"] {
+    &::after {
+      transform: scaleX(1);
+    }
+  }
+
+  [data-is-active="false"] {
+    &::after {
+      transform: scaleX(0);
+    }
+  }
+}

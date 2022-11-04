@@ -1,0 +1,18 @@
+@import "../../abstracts/functions";
+@import "../../abstracts/variables";
+
+.typesContainer {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 5px;
+
+  p {
+    font-weight: GetFontWeight("bold");
+    color: $text-primary;
+    margin: 0;
+  }
+
+  &_type {
+    color: $text-secondary !important;
+  }
+}

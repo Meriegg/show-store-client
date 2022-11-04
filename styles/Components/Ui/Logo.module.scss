@@ -1,0 +1,24 @@
+@import "../../abstracts/variables";
+@import "../../abstracts/functions";
+
+.logo {
+  display: flex;
+  flex-direction: column;
+
+  &_divider {
+    width: 100%;
+    height: 2px;
+    background-color: $text-primary;
+  }
+
+  p {
+    font-size: 2rem;
+    font-weight: GetFontWeight("bold");
+    margin: 0;
+  }
+
+  &_top {
+    -webkit-text-stroke: 1px $text-primary;
+    color: transparent;
+  }
+}
