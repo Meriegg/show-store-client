@@ -4,6 +4,7 @@ import CartMenu from "./Pages/StoreCart/CartMenu";
 import AdminOptionsBtn from "./Admin/AdminOptionsBtn";
 import AdminMenu from "./Admin/AdminMenu";
 import PrototypeAlert from "./PrototypeAlert";
+import Head from "next/head";
 import { refetch } from "@rootDir/redux/localChanges/localValues";
 import {
   setMobile,
@@ -49,6 +50,9 @@ const Layout = ({ children }: Props) => {
 
   return (
     <>
+      <Head>
+        <title>Shot Store | MarioDev</title>
+      </Head>
       <PrototypeAlert />
       <AdminMenu />
       <AdminOptionsBtn />
