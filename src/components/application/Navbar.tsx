@@ -2,13 +2,18 @@
 
 import clsx from "clsx";
 import Link from "next/link";
+import Button from "../Button";
+import Menu from "./Menu";
+import Logo from "../Logo";
+import OpenMenuBtn from "./OpenMenu";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faHome, faShop, faContactCard, faCartShopping } from "@fortawesome/free-solid-svg-icons";
 import { usePathname } from "next/navigation";
-import Button from "../Button";
+import { useState } from "react";
 
 const Navbar = () => {
   const pathName = usePathname();
+  const [isMenuOpen, setMenuOpen] = useState(false);
 
   const links = [
     { href: "/", text: "Home", icon: faHome },
@@ -17,18 +22,13 @@ const Navbar = () => {
   ];
 
   return (
-    <div className="flex items-center justify-between px-8 py-4 border-b-[1px] border-black">
-      <div className="flex items-center gap-8">
-        <div className="flex flex-col text-2xl items-center font-bold">
-          <p className="logo-outline-text">SHOW</p>
-          <div className="w-full h-[1px] bg-black"></div>
-          <p>STORE</p>
-        </div>
-        <div className="flex items-center gap-6 md:hidden">
-          {links.map((link, idx) => {
-            console.log(pathName);
-
-            return (
+    <>
+      <div className="flex items-center justify-between px-8 md:px-4 py-4 border-b-[1px] border-black sticky top-0">
+        <div className="flex items-center gap-8 md:gap-4">
+          <OpenMenuBtn isMenuOpen={isMenuOpen} setMenuOpen={setMenuOpen} />
+          <Logo />
+          <div className="flex items-center gap-6 md:hidden">
+            {links.map((link, idx) => (
               <Link
                 key={idx}
                 href={link.href}
@@ -40,16 +40,17 @@ const Navbar = () => {
                 {link.text}
                 <FontAwesomeIcon className="w-4 h-4" icon={link.icon} />
               </Link>
-            );
-          })}
+            ))}
+          </div>
+        </div>
+        <div>
+          <Button size="small" right={<FontAwesomeIcon icon={faCartShopping} />}>
+            Cart
+          </Button>
         </div>
       </div>
-      <div>
-        <Button size="small" right={<FontAwesomeIcon icon={faCartShopping} />}>
-          Cart
-        </Button>
-      </div>
-    </div>
+      <Menu isOpen={isMenuOpen} setOpen={setMenuOpen} links={links} />
+    </>
   );
 };
 
