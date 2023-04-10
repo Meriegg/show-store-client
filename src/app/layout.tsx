@@ -1,10 +1,11 @@
 import "./globals.css";
-import { Inter } from "next/font/google";
+import Navbar from "@/components/application/Navbar";
+import { DM_Sans } from "next/font/google";
 
-const inter = Inter({
+const inter = DM_Sans({
+  weight: ["400", "500", "700"],
   subsets: ["latin"],
-  display: "swap",
-  variable: "--font-inter",
+  variable: "--font-dm",
 });
 
 export const metadata = {
@@ -15,7 +16,10 @@ export const metadata = {
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="en" className={inter.className}>
-      <body>{children}</body>
+      <body>
+        <Navbar />
+        {children}
+      </body>
     </html>
   );
 }
