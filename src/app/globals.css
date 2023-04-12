@@ -3,6 +3,13 @@
 @tailwind utilities;
 
 @layer base {
+  body,
+  html {
+    display: initial;
+
+    @apply overflow-x-hidden;
+  }
+
   * {
     font-family: var(--font-dm);
 
@@ -15,5 +22,9 @@
     -webkit-text-stroke-width: 1px;
     -webkit-text-stroke-color: black;
     color: white;
+  }
+
+  .sectionPadding {
+    @apply px-24 py-12 md:px-4 lg:px-8;
   }
 }

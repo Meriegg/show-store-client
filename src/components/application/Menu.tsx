@@ -22,7 +22,7 @@ const Menu = ({ isOpen, setOpen, links }: Props) => {
   return (
     <div
       className={clsx(
-        "transition-all z-30 bg-white fixed top-0 left-0 w-full h-full transform",
+        "transition-all z-40 bg-white fixed top-0 left-0 w-full h-full transform hidden md:block",
         isOpen ? "translate-x-0" : "-translate-x-full"
       )}
     >

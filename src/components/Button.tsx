@@ -10,8 +10,8 @@ const buttonVariants = cva(
     variants: {
       variant: {
         primary: "bg-black text-white ring-neutral-200",
-        outline:
-          "border-2 border-black text-black bg-transparent ring-neutral-200 hover:bg-black hover:text-white",
+        ghost:
+          "outline-2 border-black text-black bg-transparent ring-neutral-200 hover:bg-black hover:text-white",
       },
       size: {
         normal: "px-6 py-2.5 text-sm",
@@ -24,7 +24,7 @@ const buttonVariants = cva(
       },
     },
     defaultVariants: {
-      variant: "outline",
+      variant: "primary",
       size: "normal",
       rounded: "normal",
     },

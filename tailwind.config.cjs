@@ -23,7 +23,7 @@ module.exports = {
         sm: { max: "639px" },
         // => @media (max-width: 639px) { ... }
 
-        sm: { max: "352px" },
+        xs: { max: "352px" },
         // => @media (max-width: 352px) { ... }
       },
     },
