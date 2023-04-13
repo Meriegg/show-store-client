@@ -1,0 +1,1 @@
+export const PRODUCT_MAX_PRICE = 1999.99;

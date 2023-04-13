@@ -26,6 +26,7 @@ export const useFilter = create<Filter>((set) => ({
     price: val
   })),
   clearFilter: () => set(() => ({
-    price: null
+    price: null,
+    types: []
   })),
 }))
