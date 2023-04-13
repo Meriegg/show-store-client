@@ -1,5 +1,6 @@
 import "./globals.css";
 import Navbar from "@/components/application/Navbar";
+import { TrpcProvider } from "@/utils/trpc-provider";
 import { DM_Sans } from "next/font/google";
 
 const inter = DM_Sans({
@@ -18,7 +19,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
     <html lang="en" className={inter.className}>
       <body>
         <Navbar />
-        {children}
+        <TrpcProvider>{children}</TrpcProvider>
       </body>
     </html>
   );

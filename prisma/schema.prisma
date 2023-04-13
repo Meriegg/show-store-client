@@ -9,3 +9,62 @@ datasource db {
   provider = "postgresql"
   url      = env("DATABASE_URL")
 }
+
+model Type {
+  id       String    @id @default(cuid())
+  name     String
+  products Product[]
+
+  @@map("type")
+}
+
+model Product {
+  id                             String            @id @default(cuid())
+  name                           String
+  price                          Float
+  // Verify that the name and the price are valid and werent modified
+  publicPriceNameVerificationKey String
+  types                          Type[]
+  // Used to display the popularity of an item
+  orders                         ProductForOrder[] @relation("Orders")
+
+  @@map("product")
+}
+
+model ProductForOrder {
+  id        String  @id @default(cuid())
+  productId String
+  product   Product @relation(fields: [productId], references: [id], name: "Orders")
+  quantity  Int
+  size      String
+
+  @@map("productForOrder")
+}
+
+enum OrderPaymentMode {
+  paid_online
+  pay_on_delivery
+}
+
+enum OrderStatus {
+  in_preparation
+  in_shipping
+  delivered
+}
+
+enum OrderPaymentStatus {
+  paid
+  unpaid
+}
+
+model Order {
+  id          String           @id @default(cuid())
+  paymentMode OrderPaymentMode
+  orderStatus OrderStatus      @default(in_preparation)
+
+  // Will be automatically set as paid if the customer pays online
+  // using stripe
+  orderPaymentStatus OrderPaymentStatus @default(unpaid)
+
+  @@map("order")
+}

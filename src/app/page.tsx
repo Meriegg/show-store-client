@@ -154,6 +154,7 @@ export default function Home() {
         <Marquee direction="right" className="mt-8">
           {Array.from(new Array(10)).map((_, idx) => (
             <div
+              key={idx}
               className={clsx(
                 "px-14 py-4 flex items-center justify-center border-r border-y border-black",
                 idx === 0 && "border-l"
