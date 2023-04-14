@@ -23,6 +23,7 @@ model Product {
   name                           String
   price                          Float
   types                          Type[]
+  images                         String[]
   // Verify that the name and the price are valid and were not modified
   publicPriceNameVerificationKey String
   verificationKey                String
@@ -90,7 +91,7 @@ model AdminSession {
   sessionToken          String    @unique
   hashedUserIP          String? // 😢
   publicVerificationKey String    @unique
-  adminId               String    @unique
+  adminId               String
   adminUser             AdminUser @relation(fields: [adminId], references: [id], name: "ActiveSessions")
 
   @@map("adminSession")

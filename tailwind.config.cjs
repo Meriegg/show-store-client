@@ -26,6 +26,9 @@ module.exports = {
         xs: { max: "352px" },
         // => @media (max-width: 352px) { ... }
       },
+      colors: {
+        "modal-transparent-black": "rgba(0, 0, 0, 0.6)",
+      },
     },
   },
   plugins: [],

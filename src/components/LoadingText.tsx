@@ -4,9 +4,10 @@ import LoadingSpinner from "./LoadingSpinner";
 interface Props {
   containerClass?: string;
   textClass?: string;
+  customLabel?: string;
 }
 
-const LoadingText = ({ containerClass, textClass }: Props) => {
+const LoadingText = ({ containerClass, customLabel, textClass }: Props) => {
   return (
     <div
       className={clsx(
@@ -15,7 +16,7 @@ const LoadingText = ({ containerClass, textClass }: Props) => {
       )}
     >
       <LoadingSpinner />
-      <p className={clsx("text-sm", textClass)}>Loading</p>
+      <p className={clsx("text-sm", textClass)}>{customLabel || "Loading"}</p>
     </div>
   );
 };

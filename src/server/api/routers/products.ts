@@ -13,6 +13,7 @@ export const productsRouter = createTRPCRouter({
     name: z.string(),
     price: z.number().min(1),
     types: z.string().array(),
+    images: z.string().array()
   })).mutation(async ({ ctx: { prisma }, input }) => {
     const linkedNamePrice = `${input.name}:${input.price}`;
     const { privateKey, publicKey } = generateKeyPair();

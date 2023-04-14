@@ -3,13 +3,15 @@ import { productsRouter } from "./routers/products";
 import { typesRouter } from "./routers/types";
 import { adminAuthRouter } from "./routers/admin/auth";
 import { adminDataRouter } from "./routers/admin/data";
+import { orderRouter } from "./routers/admin/orders";
 
 export const appRouter = createTRPCRouter({
   products: productsRouter,
   types: typesRouter,
   admin: createTRPCRouter({
     auth: adminAuthRouter,
-    data: adminDataRouter
+    data: adminDataRouter,
+    orders: orderRouter,
   })
 });
 

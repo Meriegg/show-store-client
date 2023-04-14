@@ -53,6 +53,9 @@ const Input = ({
               error && "placeholder:text-red-500",
               className
             )}
+            style={{
+              borderRadius: "inherit",
+            }}
             {...props}
           />
           {innerRight}

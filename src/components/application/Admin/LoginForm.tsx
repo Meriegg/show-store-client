@@ -4,6 +4,7 @@ import PasswordInput from "@/components/PasswordInput";
 import Input from "@/components/Input";
 import Link from "next/link";
 import Button from "@/components/Button";
+import Alert from "@/components/Alert";
 import { api } from "@/utils/api";
 import { z } from "zod";
 import { toFormikValidationSchema } from "zod-formik-adapter";
@@ -62,12 +63,20 @@ const AdminLogin = () => {
       className="m-auto mt-12 text-center"
     >
       {error && (
-        <div className="bg-red-100 text-red-900 font-semibold text-base px-4 py-3 rounded-md flex items-center justify-between my-3">
-          <p>{error}</p>
-          <button onClick={() => setError(null)} className="px-2 py-1 rounded-md hover:bg-red-200">
-            <FontAwesomeIcon icon={faXmark} />
-          </button>
-        </div>
+        <Alert
+          label={error}
+          right={
+            <>
+              <button
+                onClick={() => setError(null)}
+                className="px-2 py-1 rounded-md hover:bg-red-200"
+              >
+                <FontAwesomeIcon icon={faXmark} />
+              </button>
+            </>
+          }
+          color="danger"
+        />
       )}
 
       <h1 className="text-3xl font-semibold">Admin authentication</h1>
