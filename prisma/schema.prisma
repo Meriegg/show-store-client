@@ -12,7 +12,7 @@ datasource db {
 
 model Type {
   id       String    @id @default(cuid())
-  name     String
+  name     String    @unique
   products Product[]
 
   @@map("type")
@@ -22,11 +22,13 @@ model Product {
   id                             String            @id @default(cuid())
   name                           String
   price                          Float
-  // Verify that the name and the price are valid and werent modified
-  publicPriceNameVerificationKey String
   types                          Type[]
+  // Verify that the name and the price are valid and were not modified
+  publicPriceNameVerificationKey String
+  verificationKey                String
   // Used to display the popularity of an item
   orders                         ProductForOrder[] @relation("Orders")
+  createdOn                      DateTime          @default(now())
 
   @@map("product")
 }
@@ -65,6 +67,42 @@ model Order {
   // Will be automatically set as paid if the customer pays online
   // using stripe
   orderPaymentStatus OrderPaymentStatus @default(unpaid)
+  createdOn          DateTime           @default(now())
+  deliveredOn        DateTime?
 
   @@map("order")
+}
+
+// Admin
+enum AdminRole {
+  local_admin
+  owner
+}
+
+enum PasswordType {
+  hashed
+  public
+}
+
+model AdminSession {
+  id                    String    @id @default(cuid())
+  expires               DateTime
+  sessionToken          String    @unique
+  hashedUserIP          String? // 😢
+  publicVerificationKey String    @unique
+  adminId               String    @unique
+  adminUser             AdminUser @relation(fields: [adminId], references: [id], name: "ActiveSessions")
+
+  @@map("adminSession")
+}
+
+model AdminUser {
+  id             String         @id @default(cuid())
+  name           String         @unique
+  password       String
+  passwordType   PasswordType   @default(hashed)
+  role           AdminRole      @default(local_admin)
+  activeSessions AdminSession[] @relation("ActiveSessions")
+
+  @@map("adminUser")
 }

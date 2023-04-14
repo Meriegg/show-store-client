@@ -1,5 +1,6 @@
 "use client";
 
+import LoadingText from "@/components/LoadingText";
 import Sidebar from "@/components/application/Store/sidebar";
 import StoreTopBar from "@/components/application/Store/topBar";
 import { trpc } from "@/utils/trpc-provider";
@@ -13,7 +14,7 @@ const StorePage = () => {
       <div className="flex flex-col gap-2 w-full">
         <StoreTopBar />
         {!data?.length && <p>No products were found {":("}</p>}
-        {isLoading && <p>Loading</p>}
+        {isLoading && <LoadingText />}
         <p>{error?.message}</p>
       </div>
     </div>

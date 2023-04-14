@@ -1,9 +1,10 @@
+import LoadingText from "@/components/LoadingText";
+import clsx from "clsx";
+import { PRODUCT_MAX_PRICE } from "../../../constants";
 import { api } from "@/utils/api";
 import { useFilter } from "@/lib/zustand/useFilter";
 import { faXmark } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { PRODUCT_MAX_PRICE } from "../../../constants";
-import clsx from "clsx";
 
 const Sidebar = () => {
   const {
@@ -18,7 +19,7 @@ const Sidebar = () => {
     <div
       className="flex flex-col border-r-[1px] border-black sticky left-0 top-0 h-[100vh]"
       style={{
-        width: "min(250px, 100%)",
+        width: "min(275px, 100%)",
       }}
     >
       <div className="min-h-[100px] border-b-[1px] border-black flex items-center px-6">
@@ -39,14 +40,14 @@ const Sidebar = () => {
           />
           <div className="flex items-center font-semibold text-black text-sm justify-between">
             <p>1$</p>
-            <p>{price ? `${price}$` : "Everything"}</p>
+            <p>{price && price < PRODUCT_MAX_PRICE ? `${price}$` : "Everything"}</p>
           </div>
         </div>
 
         <div className="w-full flex flex-col">
           <p className="text-sm font-semibold text-neutral-600">Types</p>
           <div className="w-full">
-            {typesLoading && <p>Loading</p>}
+            {typesLoading && <LoadingText />}
             {isTypesError && <p>{typesError.message}</p>}
             {!typesLoading && !isTypesError && !typesData.length && (
               <p>Could not find any types {":("}</p>
