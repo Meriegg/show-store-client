@@ -2,9 +2,10 @@
 
 import clsx from "clsx";
 import Button from "@/components/Button";
+import Product, { ProductWithTypes } from "../../Store/Product";
 import { useState } from "react";
-import type { Type as ProductType } from "@prisma/client";
 import { api } from "@/utils/api";
+import type { Type as ProductType } from "@prisma/client";
 
 export type Type = {
   products: ProductType[];
@@ -54,11 +55,24 @@ const ProductType = ({ productType }: Props) => {
       </div>
 
       {showProducts && (
-        <div>
+        <div className="w-full">
           {!productType.products?.length && (
             <p className="font-semibold text-neutral-600 text-center w-full">
               This type has no products yet!
             </p>
+          )}
+
+          {!!productType.products?.length && (
+            <div className="flex flex-wrap gap-4 w-full">
+              {productType.products.map((product, idx) => (
+                <Product
+                  adminDisplay={true}
+                  bottomRightBtn="edit"
+                  key={idx}
+                  storeProduct={product as ProductWithTypes}
+                />
+              ))}
+            </div>
           )}
         </div>
       )}

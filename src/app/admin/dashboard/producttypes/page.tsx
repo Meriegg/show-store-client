@@ -27,12 +27,13 @@ const ProductTypes = () => {
         <hr />
       </div>
 
-      <div className="flex flex-col gap-6 mt-4">
+      <div className="flex flex-col gap-6 mt-4 w-full">
         {!data.length && (
           <p className="w-full text-center text-neutral-600 font-semibold">
             You have no product types
           </p>
         )}
+
         {data.map((type, idx) => (
           <ProductType productType={type as Type} key={idx} />
         ))}

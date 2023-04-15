@@ -1,5 +1,6 @@
 "use client";
 
+import Product from "@/components/application/Store/Product";
 import Button from "@/components/Button";
 import LoadingText from "@/components/LoadingText";
 import { faPlus } from "@fortawesome/free-solid-svg-icons";
@@ -23,6 +24,14 @@ const Products = () => {
         </Link>
       </div>
       <hr />
+
+      {!isLoading && !isError && data && (
+        <div className="w-full flex flex-wrap gap-4">
+          {data.map((product, idx) => (
+            <Product storeProduct={product} adminDisplay={true} bottomRightBtn="edit" key={idx} />
+          ))}
+        </div>
+      )}
     </div>
   );
 };

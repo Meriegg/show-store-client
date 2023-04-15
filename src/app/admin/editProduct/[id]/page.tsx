@@ -1,31 +1,39 @@
 "use client";
 
-import Link from "next/link";
 import Modal from "@/components/Modal";
 import Chip from "@/components/Chip";
 import Button from "@/components/Button";
 import Product from "@/components/application/Store/Product";
+import Input from "@/components/Input";
+import LoadingText from "@/components/LoadingText";
+import clsx from "clsx";
+import Alert from "@/components/Alert";
 import { useFormik } from "formik";
 import { faChevronLeft, faPlus } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { useRouter } from "next/navigation";
+import { useRouter, useParams } from "next/navigation";
 import { z } from "zod";
 import { toFormikValidationSchema } from "zod-formik-adapter";
-import { useState } from "react";
-import Input from "@/components/Input";
+import { useEffect, useState } from "react";
 import { api } from "@/utils/api";
-import LoadingText from "@/components/LoadingText";
-import clsx from "clsx";
 
-const AddProduct = () => {
+const EditProduct = () => {
   const router = useRouter();
+  const params = useParams();
+  const {
+    isLoading: productLoading,
+    error: productError,
+    data: productData,
+  } = api.products.getProduct.useQuery({
+    id: typeof params?.id === "object" ? params?.id.join("") : params?.id || "NO_ID",
+  });
   const {
     isLoading: typesLoading,
     error: typesError,
     data: typesData,
   } = api.types.getTypes.useQuery();
   const ctx = api.useContext();
-  const createProduct = api.products.createProduct.useMutation({
+  const updateProduct = api.products.updateProduct.useMutation({
     onSuccess: () => {
       router.push("/admin/dashboard/products");
       ctx.products.getProducts.invalidate();
@@ -51,14 +59,14 @@ const AddProduct = () => {
     setFieldValue("images", values.images);
   };
 
-  const { values, handleChange, handleSubmit, errors, setFieldValue } = useFormik<
+  const { values, handleChange, handleSubmit, errors, setFieldValue, setValues } = useFormik<
     z.infer<typeof validationSchema>
   >({
     validateOnChange: didSubmit,
     validationSchema: toFormikValidationSchema(validationSchema),
     onSubmit: (data, { resetForm }) => {
-      createProduct.mutate(
-        { ...data },
+      updateProduct.mutate(
+        { ...data, id: productData?.id || "" },
         {
           onSuccess: () => {
             resetForm();
@@ -67,12 +75,31 @@ const AddProduct = () => {
       );
     },
     initialValues: {
-      images: [],
-      name: "",
-      price: 0,
-      types: [],
+      images: productData?.images || [],
+      name: productData?.name || "",
+      price: productData?.price || 0,
+      types: productData?.types.map((type) => type.name) || [],
     },
   });
+
+  useEffect(() => {
+    if (!productData) return;
+
+    setValues({
+      images: productData.images,
+      name: productData.name,
+      price: productData.price,
+      types: productData.types.map((type) => type.name),
+    });
+  }, [productData]);
+
+  if (productError) {
+    return <Alert color="danger" label={productError.message} />;
+  }
+
+  if (productLoading) {
+    return <LoadingText customLabel="Loading product" />;
+  }
 
   return (
     <div className="sectionPadding flex items-start justify-start gap-12 flex-wrap">
@@ -122,7 +149,7 @@ const AddProduct = () => {
         >
           Go back
         </Button>
-        <p className="text-4xl font-semibold">Add a product</p>
+        <p className="text-4xl font-semibold">Edit a product</p>
 
         <form
           className="mt-6 flex flex-col gap-4"
@@ -254,8 +281,8 @@ const AddProduct = () => {
             </div>
           </div>
 
-          <Button type="submit" loading={createProduct.isLoading}>
-            Add Product!
+          <Button type="submit" loading={updateProduct.isLoading}>
+            Edit!
           </Button>
         </form>
       </div>
@@ -270,4 +297,4 @@ const AddProduct = () => {
   );
 };
 
-export default AddProduct;
+export default EditProduct;

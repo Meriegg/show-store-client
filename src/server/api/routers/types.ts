@@ -6,7 +6,11 @@ export const typesRouter = createTRPCRouter({
   getTypes: publicProcedure.query(async ({ ctx: { prisma } }) => {
     const types = await prisma.type.findMany({
       include: {
-        products: true
+        products: {
+          include: {
+            types: true
+          }
+        }
       }
     });
 
