@@ -50,7 +50,11 @@ const Menu = ({ isOpen, setOpen, links }: Props) => {
       </div>
 
       <p className="absolute bottom-4 font-semibold text-neutral-600 text-sm w-full text-center px-2">
-        &copy; 2023 - All rights reserved.
+        &copy; 2023{" "}
+        <a href="https://mariodev.vercel.app" className="!text-black underline">
+          MarioDev
+        </a>{" "}
+        - All rights reserved.
       </p>
     </div>
   );

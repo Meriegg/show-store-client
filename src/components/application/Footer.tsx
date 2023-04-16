@@ -4,13 +4,14 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 const Footer = () => {
   return (
-    <div className="flex flex-col w-fit gap-1">
+    <div className="flex flex-col items-center w-fit gap-1">
       <p className="font-semibold text-sm text-neutral-600">
         Site designed and developed by{" "}
         <a href="https://mariodev.vercel.app" className="text-black underline">
-          Mario
+          MarioDev
         </a>
       </p>
+      <p className="font-semibold text-sm text-neutral-600">&copy; 2023 All rights reserved.</p>
       <div className="h-[1px] w-full bg-neutral-300"></div>
       <div className="flex gap-4 justify-center w-full">
         <a

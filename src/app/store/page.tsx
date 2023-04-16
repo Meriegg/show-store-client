@@ -18,7 +18,7 @@ const StorePage = () => {
         {isLoading && <LoadingText />}
         <p>{error?.message}</p>
 
-        <div className="flex w-full p-4 flex-wrap justify-evenly">
+        <div className="flex gap-6 w-full p-4 flex-wrap justify-evenly">
           {!isLoading &&
             !isError &&
             data.map((product, idx) => <Product storeProduct={product} key={idx} />)}
