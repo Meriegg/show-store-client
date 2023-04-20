@@ -1,10 +1,9 @@
-"use client";
-
 import Button from "@/components/Button";
 import ImageCarousel from "@/components/ImageCarousel";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCartPlus, faEdit } from "@fortawesome/free-solid-svg-icons";
 import { Product, Type } from "@prisma/client";
+import Link from "next/link";
 
 export type ProductWithTypes = {
   types: Type[];
@@ -82,11 +81,20 @@ const Product = ({ storeProduct, adminDisplay, adminProduct, bottomRightBtn = "b
             {!adminProduct.types.length && <p className="text-sm text-neutral-600">No types</p>}
           </div>
         )}
-        {(bottomRightBtn === "buy" || !adminDisplay) && (
+        {(bottomRightBtn === "buy" || !adminDisplay) && !storeProduct && (
           <Button className="px-0 py-0 !w-[40px] !h-[40px]" disabled={adminDisplay}>
             <FontAwesomeIcon icon={faCartPlus} />
           </Button>
         )}
+
+        {(bottomRightBtn === "buy" || !adminDisplay) && storeProduct && (
+          <Link href={`/store/product/${storeProduct.id}`}>
+            <Button className="px-0 py-0 !w-[40px] !h-[40px]" disabled={adminDisplay}>
+              <FontAwesomeIcon icon={faCartPlus} />
+            </Button>
+          </Link>
+        )}
+
         {bottomRightBtn === "edit" && adminDisplay && storeProduct && (
           <Link href={`/admin/editProduct/${storeProduct.id}`}>
             <Button className="px-0 py-0 !w-[40px] !h-[40px]" variant="danger">

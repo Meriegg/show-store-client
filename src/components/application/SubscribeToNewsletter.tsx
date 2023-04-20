@@ -14,7 +14,7 @@ const SubscribeToNewsletter = () => {
       setInputVal("");
       setTimeout(() => {
         setSuccess(false);
-      }, 5000);
+      }, 7500);
     } catch (errors) {
       if (errors instanceof ZodError) {
         setError(JSON.parse(errors.message)[0].message);
@@ -59,8 +59,8 @@ const SubscribeToNewsletter = () => {
       </form>
       {error && <p className="text-sm font-semibold text-red-500 w-full text-left">{error}</p>}
       {success && (
-        <p className="text-sm font-semibold text-green-500 w-full text-left">
-          Successfully subscribed!
+        <p className="text-sm font-semibold text-center text-green-500 w-full text-left">
+          Just kidding this is a demo site, you won't receive any emails... or would you?
         </p>
       )}
     </div>

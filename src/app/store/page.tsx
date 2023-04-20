@@ -14,7 +14,7 @@ const StorePage = () => {
       <Sidebar />
       <div className="flex flex-col gap-2 w-full relative">
         <StoreTopBar />
-        {!data?.length && <p>No products were found {":("}</p>}
+        {!data?.length && !isLoading && <p>No products were found {":("}</p>}
         {isLoading && <LoadingText />}
         <p>{error?.message}</p>
 

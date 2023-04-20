@@ -172,11 +172,11 @@ export default function Home() {
         id="newsletter"
         className="flex relative flex-col items-center sectionPadding !pt-16 gap-6 border-b-[1px] border-black !pb-36"
       >
-        <div className="h-[100vh] absolute top-0 w-[1px] bg-black left-48"></div>
-        <EditableText as="h1" className="text-5xl font-bold">
+        <div className="h-[100vh] absolute top-0 w-[1px] bg-black left-48 lg:left-16 md:hidden"></div>
+        <EditableText as="h1" className="text-5xl font-bold text-center">
           Subscribe to our newsletter
         </EditableText>
-        <EditableText className="text-base font-bold">
+        <EditableText className="text-base font-bold text-center">
           We will email you for every new product and sale we have!
         </EditableText>
 

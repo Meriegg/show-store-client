@@ -3,7 +3,7 @@
 import clsx from "clsx";
 import { faChevronLeft, faChevronRight } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { useEffect, useState } from "react";
+import { Fragment, useEffect, useState } from "react";
 import Link from "next/link";
 
 type BgPositions = "top" | "center" | "right" | "bottom";
@@ -14,6 +14,8 @@ interface Props {
   bgPos?: BgPositions | `${BgPositions} ${BgPositions}`;
   linkHref?: string;
   withLink?: boolean;
+  style?: { [key: string]: string };
+  fullWidth?: boolean;
 }
 
 const ImageCarousel = ({
@@ -22,6 +24,8 @@ const ImageCarousel = ({
   withLink,
   linkHref,
   bgPos = "center",
+  style,
+  fullWidth,
 }: Props) => {
   const [activeImage, setActiveImage] = useState(0);
 
@@ -42,14 +46,15 @@ const ImageCarousel = ({
   }, [imageLinks]);
 
   return (
-    <div className="w-full relative">
+    <div className={clsx("relative", fullWidth ? "w-full" : "w-auto")} style={{ ...style }}>
       {imageLinks.map((image, idx) => (
-        <>
+        <Fragment key={idx}>
           {withLink && linkHref ? (
             <Link href={linkHref}>
               <div
                 className={clsx(
-                  "w-full transform transition-all duration-300 opacity-0 absolute top-0 left-0 scale-0",
+                  "transform transition-all duration-300 opacity-0 absolute top-0 left-0 scale-0",
+                  fullWidth ? "w-full" : "w-auto",
                   imageClassName,
                   idx === activeImage && "relative !scale-100 opacity-100"
                 )}
@@ -57,6 +62,7 @@ const ImageCarousel = ({
                   backgroundImage: `url(${image})`,
                   backgroundSize: "cover",
                   backgroundPosition: bgPos,
+                  ...style,
                 }}
               ></div>
             </Link>
@@ -71,10 +77,11 @@ const ImageCarousel = ({
                 backgroundImage: `url(${image})`,
                 backgroundSize: "cover",
                 backgroundPosition: bgPos,
+                ...style,
               }}
             ></div>
           )}
-        </>
+        </Fragment>
       ))}
       {!!imageLinks.length && imageLinks.length > 1 && (
         <>
