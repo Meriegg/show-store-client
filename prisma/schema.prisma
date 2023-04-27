@@ -40,12 +40,14 @@ model ProductForOrder {
   product   Product @relation(fields: [productId], references: [id], name: "Orders")
   quantity  Int
   size      String
+  orderId   String
+  order     Order   @relation(fields: [orderId], references: [id], name: "OrderContent")
 
   @@map("productForOrder")
 }
 
 enum OrderPaymentMode {
-  paid_online
+  pay_online
   pay_on_delivery
 }
 
@@ -61,15 +63,23 @@ enum OrderPaymentStatus {
 }
 
 model Order {
-  id          String           @id @default(cuid())
-  paymentMode OrderPaymentMode
-  orderStatus OrderStatus      @default(in_preparation)
+  id                 String           @id @default(cuid())
+  firstName          String
+  lastName           String
+  address            String
+  addressExtras      String?
+  email              String
+  country            String
+  extraDeliveryNotes String?
+  paymentMode        OrderPaymentMode
+  orderStatus        OrderStatus      @default(in_preparation)
 
   // Will be automatically set as paid if the customer pays online
   // using stripe
   orderPaymentStatus OrderPaymentStatus @default(unpaid)
   createdOn          DateTime           @default(now())
   deliveredOn        DateTime?
+  content            ProductForOrder[]  @relation("OrderContent")
 
   @@map("order")
 }
@@ -106,4 +116,14 @@ model AdminUser {
   activeSessions AdminSession[] @relation("ActiveSessions")
 
   @@map("adminUser")
+}
+
+model StoreConfig {
+  id                      String   @id @default(cuid())
+  name                    String?
+  shippingPrice           Float
+  homeHorizontalListItems String[]
+  isActive                Boolean  @default(false)
+
+  @@map("storeConfig")
 }

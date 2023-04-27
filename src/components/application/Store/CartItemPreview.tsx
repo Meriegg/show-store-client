@@ -6,7 +6,8 @@ import CartItem from "./CartItem";
 import { useCart } from "@/lib/zustand/useCart";
 import { useEffect, useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faXmark } from "@fortawesome/free-solid-svg-icons";
+import { faCartShopping, faXmark } from "@fortawesome/free-solid-svg-icons";
+import Link from "next/link";
 
 const CartItemPreview = () => {
   const [navbarHeight, setNavbarHeight] = useState<number | null>(null);
@@ -32,19 +33,27 @@ const CartItemPreview = () => {
         navbarHeight ? `top-[${navbarHeight}px]` : "top-0"
       )}
     >
+      <div className="w-full flex items-center justify-between mb-2">
+        <p className="text-lg">Just added</p>
+        <button className="px-2 py-3 text-sm text-black" onClick={() => toggleItemPreview()}>
+          <FontAwesomeIcon icon={faXmark} />
+        </button>
+      </div>
       {!latestItem && (
         <p className="w-full text-center text-neutral-600 text-sm">Oops, no items to show here!</p>
       )}
 
       <CartItem item={latestItem} />
 
-      <Button
-        right={<FontAwesomeIcon icon={faXmark} />}
-        className="w-full mt-4"
-        onClick={() => toggleItemPreview()}
-      >
-        Close this
-      </Button>
+      <Link href="/checkout">
+        <Button
+          onClick={() => toggleItemPreview()}
+          right={<FontAwesomeIcon icon={faCartShopping} />}
+          className="w-full mt-6"
+        >
+          Go to checkout
+        </Button>
+      </Link>
     </div>
   );
 };

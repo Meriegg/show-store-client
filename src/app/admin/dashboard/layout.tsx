@@ -12,6 +12,7 @@ const Layout = ({ children }: { children: React.ReactNode }) => {
     { text: "Orders", href: "/admin/dashboard/orders" },
     { text: "Product Types", href: "/admin/dashboard/producttypes" },
     { text: "Products", href: "/admin/dashboard/products" },
+    { text: "Store Configs", href: "/admin/dashboard/storeConfig" },
   ];
 
   return (

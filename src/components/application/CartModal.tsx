@@ -35,19 +35,23 @@ const CartModal = () => {
         </div>
 
         {!items.length && (
-          <p className="w-full text-center text-sm text-neutral-600 font-semibold">
-            You have no items
-          </p>
+          <div className="flex h-full items-center justify-center">
+            <p className="w-full text-center text-sm text-neutral-600 font-semibold">
+              You have no items
+            </p>
+          </div>
         )}
 
-        <div className="flex flex-col gap-6 grow overflow-y-scroll">
-          {items.map((item, idx) => (
-            <CartItem item={item} key={idx} />
-          ))}
-        </div>
+        {!!items.length && (
+          <div className="flex flex-col gap-6 grow overflow-y-auto">
+            {items.map((item, idx) => (
+              <CartItem item={item} key={idx} />
+            ))}
+          </div>
+        )}
         {!!items.length && (
           <div className="w-full">
-            <Link href="/cart">
+            <Link href="/checkout">
               <Button
                 onClick={() => toggleOpen()}
                 right={<FontAwesomeIcon icon={faCartShopping} />}

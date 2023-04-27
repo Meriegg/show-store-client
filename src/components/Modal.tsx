@@ -20,7 +20,7 @@ const Modal = ({ children, isOpen, label, labelComponent, setOpen }: Props) => {
       {createPortal(
         <div className="fixed bg-modal-transparent-black z-30 top-0 left-0 h-full w-full flex items-center justify-center">
           <div
-            className="px-3 py-1 pb-3 bg-white rounded-md flex flex-col gap-2"
+            className="px-3 py-1 pb-3 bg-white rounded-md flex flex-col gap-2 max-h-[90vh] overflow-y-auto"
             style={{
               width: "min(500px, 100%)",
             }}

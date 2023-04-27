@@ -67,7 +67,7 @@ const Dropdown = <T,>({
       {error && <p className="w-full text-left text-red-900">{error}</p>}
       <div
         className={clsx(
-          "absolute left-0 top-8 -z-10 flex max-h-[350px] w-full min-w-fit flex-col gap-1 overflow-y-scroll rounded-lg bg-neutral-50 px-2 opacity-0 shadow-lg transition-all duration-300",
+          "absolute left-0 top-8 -z-10 flex max-h-[350px] w-full min-w-fit flex-col gap-1 overflow-y-auto rounded-lg bg-neutral-50 px-2 opacity-0 shadow-lg transition-all duration-300",
           isOpen && "!top-16 !z-10 !opacity-100",
           hasSearch ? "pt-0 pb-2" : "py-2"
         )}

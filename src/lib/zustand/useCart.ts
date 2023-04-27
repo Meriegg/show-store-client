@@ -18,6 +18,7 @@ interface UseCart {
   removeItem: (props: { id: string; size: string }) => void;
   increaseItemQuantity: (props: { id: string; size: string }) => void;
   decreaseItemQuantity: (props: { id: string; size: string }) => void;
+  setItemQuantity: (props: { id: string; size: string, itemQuantity: number; }) => void;
 };
 
 export const useCart = create<UseCart>((set) => ({
@@ -42,7 +43,7 @@ export const useCart = create<UseCart>((set) => ({
 
     return {
       items,
-      latestItem: item,
+      latestItem: items[idx],
       showItemPreview: true
     }
   }),
@@ -76,6 +77,16 @@ export const useCart = create<UseCart>((set) => ({
 
     const item = items[idx];
     item.quantity += 1;
+
+    return {
+      items
+    }
+  }),
+  setItemQuantity: ({ id, size, itemQuantity }) => set(({ items }) => {
+    const idx = items.findIndex((arrItem) => arrItem.baseItem.id === id && arrItem.size === size)
+    if (idx === -1) return { items };
+
+    items[idx].quantity = itemQuantity
 
     return {
       items

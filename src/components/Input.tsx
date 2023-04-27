@@ -12,6 +12,7 @@ export interface InputProps
   innerLeft?: ReactNode;
   innerRight?: ReactNode;
   containerClassName?: string;
+  mainContainerClassName?: string;
 }
 
 const Input = ({
@@ -24,14 +25,15 @@ const Input = ({
   innerLeft,
   innerRight,
   containerClassName,
+  mainContainerClassName,
   ...props
 }: InputProps) => {
   return (
-    <div className="flex flex-col gap-1">
+    <div className={clsx("flex flex-col gap-1", mainContainerClassName)}>
       {label && (
         <div className="flex gap-0 items-center font-semibold text-sm">
           <p>{label}</p>
-          <p className="text-red-600">*</p>
+          {withAsterisk && <p className="text-red-600">*</p>}
         </div>
       )}
       <div className="flex items-center gap-2 w-full">
