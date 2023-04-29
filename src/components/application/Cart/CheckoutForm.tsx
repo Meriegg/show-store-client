@@ -12,11 +12,18 @@ import { useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCheck, faCreditCard } from "@fortawesome/free-solid-svg-icons";
 import { calcCartTotal } from "@/utils/calc-total";
+import { Elements } from "@stripe/react-stripe-js";
+import { loadStripe } from "@stripe/stripe-js";
+import { OrderDataSchema } from "@/lib/zod/schemas";
+import Alert from "@/components/Alert";
 import Checkbox from "@/components/Checkbox";
 import Radio from "@/components/Radio";
 import LoadingText from "@/components/LoadingText";
 import Input from "@/components/Input";
 import Dropdown from "@/components/Dropdown";
+import StripeForm from "./StripeForm";
+
+const stripePromise = loadStripe(process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY as string);
 
 const CheckoutForm = () => {
   const [showAddressExtras, setShowAddressExtras] = useState(false);
@@ -29,21 +36,23 @@ const CheckoutForm = () => {
   } = api.storeConfig.getShippingPrice.useQuery();
   const [validateOnChange, setValidateOnChange] = useState(false);
 
-  const validationSchema = z.object({
-    firstName: z.string(),
-    lastName: z.string(),
-    address: z.string(),
-    addressExtras: z.string().optional(),
-    email: z.string(),
-    country: z.string(),
-    extraDeliveryNotes: z.string().optional(),
-    paymentMode: z.union([z.literal("pay_on_delivery"), z.literal("pay_online")]),
+  const [showStripeForm, setShowStripeForm] = useState(false);
+  const [createPaymentIntentError, setCreatePaymentIntentError] = useState<string | null>(null);
+
+  const createStripePaymentIntent = api.stripe.createPaymentIntent.useMutation({
+    onError: (error) => {
+      setCreatePaymentIntentError(error.message);
+    },
+    onSuccess: () => {
+      setShowStripeForm(true);
+      setCreatePaymentIntentError(null);
+    },
   });
 
   const { handleSubmit, handleChange, errors, values, setFieldValue } = useFormik<
-    z.infer<typeof validationSchema>
+    z.infer<typeof OrderDataSchema>
   >({
-    validationSchema: toFormikValidationSchema(validationSchema),
+    validationSchema: toFormikValidationSchema(OrderDataSchema),
     validateOnChange,
     initialValues: {
       address: "",
@@ -55,7 +64,20 @@ const CheckoutForm = () => {
       addressExtras: "",
       extraDeliveryNotes: "",
     },
-    onSubmit: (data) => {},
+    onSubmit: (data) => {
+      if (!shippingPrice) {
+        return;
+      }
+
+      if (data.paymentMode === "pay_online") {
+        createStripePaymentIntent.mutate({
+          items,
+          shippingPrice,
+        });
+      } else {
+        // Create order...
+      }
+    },
   });
 
   if (!items.length) {
@@ -93,104 +115,142 @@ const CheckoutForm = () => {
             </div>
           </>
         )}
-        <Input
-          label="First name"
-          withAsterisk
-          placeholder="John"
-          value={values.firstName}
-          onChange={handleChange("firstName")}
-          error={errors.firstName}
-        />
-        <Input
-          label="Last Name"
-          withAsterisk
-          placeholder="Doe"
-          value={values.lastName}
-          onChange={handleChange("lastName")}
-          error={errors.lastName}
-        />
-        <Input
-          label="Your email"
-          withAsterisk
-          placeholder="johndoe@example.com"
-          value={values.email}
-          onChange={handleChange("email")}
-          error={errors.email}
-        />
-        <Dropdown
-          options={Country.getAllCountries().map((country) => ({
-            key: `${country.name}`,
-            value: country.name,
-          }))}
-          error={errors.country}
-          value={values.country}
-          setValue={(val) => setFieldValue("country", val)}
-          shownValue={values.country}
-          hasSearch
-          isFullWidth
-          placeholder="Select your country"
-        />
-        <Input
-          label="Your Address"
-          withAsterisk
-          placeholder="City/State - Your address"
-          value={values.address}
-          onChange={handleChange("address")}
-          error={errors.address}
-        />
-        <p className="font-semibold text-black text-sm mt-2">How would you wish to pay?</p>
-        <Radio
-          value={"pay_on_delivery" as typeof values.paymentMode}
-          errorMessage={errors.paymentMode}
-          onChange={handleChange("paymentMode")}
-          label="Pay on delivery"
-          checked={values.paymentMode === "pay_on_delivery"}
-        />
-        <Radio
-          value={"pay_online" as typeof values.paymentMode}
-          errorMessage={errors.paymentMode}
-          onChange={handleChange("paymentMode")}
-          label="Pay online"
-          checked={values.paymentMode === "pay_online"}
-        />
-        <Checkbox
-          checked={showAddressExtras}
-          setChecked={setShowAddressExtras}
-          label="Do you have something useful you can add to your address?"
-        />
-        {showAddressExtras && (
-          <TextArea
-            value={values.addressExtras}
-            onChange={handleChange("addressExtras")}
-            placeholder="Add some extras to your address..."
-          />
-        )}
-        <Checkbox
-          checked={showDeliveryExtras}
-          setChecked={setShowDeliveryExtras}
-          label="Do you have any specific requirements for the courier?"
-        />
-        {showDeliveryExtras && (
-          <TextArea
-            value={values.extraDeliveryNotes}
-            onChange={handleChange("extraDeliveryNotes")}
-            placeholder="Something the courier should know..."
-          />
-        )}
-        <Button
-          className="w-full"
-          right={
-            <FontAwesomeIcon
-              icon={values.paymentMode === "pay_on_delivery" ? faCheck : faCreditCard}
+        {!showStripeForm && (
+          <>
+            <Input
+              label="First name"
+              withAsterisk
+              placeholder="John"
+              value={values.firstName}
+              onChange={handleChange("firstName")}
+              error={errors.firstName}
             />
-          }
-          type="submit"
-          disabled={!!shippingPriceError}
-        >
-          {values.paymentMode === "pay_on_delivery" ? "Place order!" : "Continue to payment!"}
-        </Button>
+            <Input
+              label="Last Name"
+              withAsterisk
+              placeholder="Doe"
+              value={values.lastName}
+              onChange={handleChange("lastName")}
+              error={errors.lastName}
+            />
+            <Input
+              label="Your email"
+              withAsterisk
+              placeholder="johndoe@example.com"
+              value={values.email}
+              onChange={handleChange("email")}
+              error={errors.email}
+            />
+            <Dropdown
+              options={Country.getAllCountries().map((country) => ({
+                key: `${country.name}`,
+                value: country.name,
+              }))}
+              error={errors.country}
+              value={values.country}
+              setValue={(val) => setFieldValue("country", val)}
+              shownValue={values.country}
+              hasSearch
+              isFullWidth
+              placeholder="Select your country"
+            />
+            <Input
+              label="Your Address"
+              withAsterisk
+              placeholder="City/State - Your address"
+              value={values.address}
+              onChange={handleChange("address")}
+              error={errors.address}
+            />
+            <p className="font-semibold text-black text-sm mt-2">How would you wish to pay?</p>
+            <Radio
+              value={"pay_on_delivery" as typeof values.paymentMode}
+              errorMessage={errors.paymentMode}
+              onChange={handleChange("paymentMode")}
+              label="Pay on delivery"
+              checked={values.paymentMode === "pay_on_delivery"}
+            />
+            <Radio
+              value={"pay_online" as typeof values.paymentMode}
+              errorMessage={errors.paymentMode}
+              onChange={handleChange("paymentMode")}
+              label="Pay online"
+              checked={values.paymentMode === "pay_online"}
+            />
+            <Checkbox
+              checked={showAddressExtras}
+              setChecked={setShowAddressExtras}
+              label="Do you have something useful you can add to your address?"
+            />
+            {showAddressExtras && (
+              <TextArea
+                value={values.addressExtras}
+                onChange={handleChange("addressExtras")}
+                placeholder="Add some extras to your address..."
+              />
+            )}
+            <Checkbox
+              checked={showDeliveryExtras}
+              setChecked={setShowDeliveryExtras}
+              label="Do you have any specific requirements for the courier?"
+            />
+            {showDeliveryExtras && (
+              <TextArea
+                value={values.extraDeliveryNotes}
+                onChange={handleChange("extraDeliveryNotes")}
+                placeholder="Something the courier should know..."
+              />
+            )}
+          </>
+        )}
+        {createPaymentIntentError && values.paymentMode === "pay_online" && (
+          <Alert labelClassName="text-sm" color="danger" label={createPaymentIntentError} />
+        )}
+        {values.paymentMode === "pay_online" ? (
+          <>
+            {!showStripeForm && (
+              <Button
+                className="w-full"
+                right={<FontAwesomeIcon icon={faCreditCard} />}
+                type="submit"
+                loading={createStripePaymentIntent.isLoading}
+                disabled={
+                  !!shippingPriceError || !!createStripePaymentIntent.data || showStripeForm
+                }
+              >
+                {createPaymentIntentError ? "Try again!" : "Continue to payment!"}
+              </Button>
+            )}
+
+            {showStripeForm && !!createStripePaymentIntent.data && (
+              <Elements
+                options={{
+                  appearance: {
+                    theme: "stripe",
+                  },
+                  clientSecret: createStripePaymentIntent.data,
+                }}
+                stripe={stripePromise}
+              >
+                <StripeForm
+                  orderInformation={values}
+                  shippingPrice={shippingPrice as number}
+                  clientSecret={createStripePaymentIntent.data}
+                />
+              </Elements>
+            )}
+          </>
+        ) : (
+          <Button
+            className="w-full"
+            right={<FontAwesomeIcon icon={faCheck} />}
+            type="submit"
+            disabled={!!shippingPriceError}
+          >
+            Place order!
+          </Button>
+        )}
       </form>
-      <pre>{JSON.stringify(values, null, 2)}</pre>
     </div>
   );
 };

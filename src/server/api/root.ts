@@ -6,6 +6,8 @@ import { adminDataRouter } from "./routers/admin/data";
 import { orderRouter } from "./routers/admin/orders";
 import { adminStoreConfigRouter } from "./routers/admin/storeConfig";
 import { storeConfigRouter } from "./routers/storeConfig";
+import { stripeRouter } from "./routers/stripe";
+import { ordersRouter } from "./routers/orders";
 
 export const appRouter = createTRPCRouter({
   products: productsRouter,
@@ -16,7 +18,9 @@ export const appRouter = createTRPCRouter({
     orders: orderRouter,
     storeConfig: adminStoreConfigRouter
   }),
-  storeConfig: storeConfigRouter
+  storeConfig: storeConfigRouter,
+  stripe: stripeRouter,
+  order: ordersRouter
 });
 
 export type AppRouter = typeof appRouter;

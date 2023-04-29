@@ -74,11 +74,16 @@ model Order {
   paymentMode        OrderPaymentMode
   orderStatus        OrderStatus      @default(in_preparation)
 
+  // The shipping price may change so its good to have the shipping price
+  // at the time of order stored
+  timeOfOrderShippingPrice Float
+
   // Will be automatically set as paid if the customer pays online
   // using stripe
   orderPaymentStatus OrderPaymentStatus @default(unpaid)
   createdOn          DateTime           @default(now())
   deliveredOn        DateTime?
+  orderTotal         Float
   content            ProductForOrder[]  @relation("OrderContent")
 
   @@map("order")
@@ -99,7 +104,7 @@ model AdminSession {
   id                    String    @id @default(cuid())
   expires               DateTime
   sessionToken          String    @unique
-  hashedUserIP          String? // 😢
+  hashedUserIP          String?
   publicVerificationKey String    @unique
   adminId               String
   adminUser             AdminUser @relation(fields: [adminId], references: [id], name: "ActiveSessions")

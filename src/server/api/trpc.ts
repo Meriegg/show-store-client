@@ -1,13 +1,22 @@
+import Stripe from "stripe";
 import { prisma } from "../db";
+import { env } from "@/env.mjs";
 import { type CreateNextContextOptions } from "@trpc/server/adapters/next";
 
+const stripe = new Stripe(env.STRIPE_SECRET_KEY, {
+  // @ts-expect-error
+  apiVersion: null
+})
+
 type CreateContextOptions = {
-  prisma: typeof prisma
+  prisma: typeof prisma;
+  stripe: typeof stripe;
 } & CreateNextContextOptions;
 
 const createInnerTRPCContext = (_opts: CreateContextOptions) => {
   return {
     prisma,
+    stripe,
     req: _opts.req,
     res: _opts.res
   };
@@ -17,7 +26,8 @@ export const createTRPCContext = (_opts: CreateNextContextOptions) => {
   return createInnerTRPCContext({
     req: _opts.req,
     res: _opts.res,
-    prisma
+    prisma,
+    stripe
   });
 };
 
