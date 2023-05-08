@@ -3,6 +3,7 @@ import { createTRPCRouter, publicProcedure, adminProcedure } from "../trpc";
 import generateKeyPair from "@/server/utils/generate-key-pair";
 import createSignedString from "@/server/utils/create-signed-string";
 import { TRPCError } from "@trpc/server";
+import restrictAdmin from "@/server/utils/restrict-admin";
 
 export const productsRouter = createTRPCRouter({
   getProducts: publicProcedure.query(async ({ ctx: { prisma } }) => {
@@ -38,7 +39,9 @@ export const productsRouter = createTRPCRouter({
     price: z.number().min(1),
     types: z.string().array(),
     images: z.string().array()
-  })).mutation(async ({ ctx: { prisma }, input }) => {
+  })).mutation(async ({ ctx: { prisma, adminSession }, input }) => {
+    restrictAdmin(adminSession)
+
     const linkedNamePrice = `${input.name}:${input.price}`;
     const { privateKey, publicKey } = generateKeyPair();
     const namePriceLinkSignature = createSignedString(linkedNamePrice, { privateKey, publicKey });
@@ -89,7 +92,9 @@ export const productsRouter = createTRPCRouter({
     types: z.string().array(),
     images: z.string().array(),
     id: z.string()
-  })).mutation(async ({ ctx: { prisma }, input: { types, id, ...input } }) => {
+  })).mutation(async ({ ctx: { prisma, adminSession }, input: { types, id, ...input } }) => {
+    restrictAdmin(adminSession)
+
     const linkedNamePrice = `${input.name}:${input.price}`;
     const { privateKey, publicKey } = generateKeyPair();
     const namePriceLinkSignature = createSignedString(linkedNamePrice, { privateKey, publicKey });

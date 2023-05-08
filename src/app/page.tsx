@@ -4,7 +4,7 @@ import Button from "@/components/Button";
 import EditableText from "@/components/demo/EditableText";
 import Footer from "@/components/application/Footer";
 import SubscribeToNewsletter from "@/components/application/SubscribeToNewsletter";
-import clsx from "clsx";
+import HomeExplore from "@/components/application/HomeExploreSection";
 
 export default function Home() {
   return (
@@ -142,32 +142,7 @@ export default function Home() {
           </EditableText>
         </div>
       </section>
-      <section
-        id="explore"
-        className="border-b-[1px] border-black sectionPadding flex flex-col items-start justify-center h-[100vh]"
-      >
-        <EditableText className="font-bold text-4xl" allowHTML>
-          You Explore.
-          <br /> We deliver
-        </EditableText>
-
-        <Marquee direction="right" className="mt-8">
-          {Array.from(new Array(10)).map((_, idx) => (
-            <div
-              key={idx}
-              className={clsx(
-                "px-14 py-4 flex items-center justify-center border-r border-y border-black",
-                idx === 0 && "border-l"
-              )}
-            >
-              <p>Item</p>
-            </div>
-          ))}
-        </Marquee>
-        <p className="w-full text-right font-semibold text-sm text-neutral-600 mt-4">
-          Items modifiable in Admin Panel!
-        </p>
-      </section>
+      <HomeExplore />
       <section
         id="newsletter"
         className="flex relative flex-col items-center sectionPadding !pt-16 gap-6 border-b-[1px] border-black !pb-36"

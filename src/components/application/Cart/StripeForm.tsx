@@ -7,7 +7,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCheck, faXmark } from "@fortawesome/free-solid-svg-icons";
 import { PaymentElement } from "@stripe/react-stripe-js";
 import { useStripe, useElements } from "@stripe/react-stripe-js";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { api } from "@/utils/api";
 import { OrderDataSchema } from "@/lib/zod/schemas";
 import LoadingSpinner from "@/components/LoadingSpinner";
@@ -83,21 +83,23 @@ const StripeForm = ({ clientSecret, orderInformation, shippingPrice }: Props) =>
 
   return (
     <>
-      <PaymentElement
-        id="payment-element"
-        options={{
-          layout: "auto",
-          fields: {
-            billingDetails: {
-              email: "auto",
-              name: "auto",
+      {!success && (
+        <PaymentElement
+          id="payment-element"
+          options={{
+            layout: "auto",
+            fields: {
+              billingDetails: {
+                email: "auto",
+                name: "auto",
+              },
             },
-          },
-          business: {
-            name: "SHOW STORE",
-          },
-        }}
-      />
+            business: {
+              name: "SHOW STORE",
+            },
+          }}
+        />
+      )}
       {errorMessage && (
         <div className="w-full flex flex-col text-base items-center gap-2 mt-4 text-red-500">
           <FontAwesomeIcon icon={faXmark} />

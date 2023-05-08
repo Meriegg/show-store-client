@@ -8,6 +8,7 @@ import { adminStoreConfigRouter } from "./routers/admin/storeConfig";
 import { storeConfigRouter } from "./routers/storeConfig";
 import { stripeRouter } from "./routers/stripe";
 import { ordersRouter } from "./routers/orders";
+import { adminAccountsRouter } from "./routers/admin/accounts";
 
 export const appRouter = createTRPCRouter({
   products: productsRouter,
@@ -16,7 +17,8 @@ export const appRouter = createTRPCRouter({
     auth: adminAuthRouter,
     data: adminDataRouter,
     orders: orderRouter,
-    storeConfig: adminStoreConfigRouter
+    storeConfig: adminStoreConfigRouter,
+    accounts: adminAccountsRouter
   }),
   storeConfig: storeConfigRouter,
   stripe: stripeRouter,

@@ -35,6 +35,8 @@ const CheckoutForm = () => {
     error: shippingPriceError,
   } = api.storeConfig.getShippingPrice.useQuery();
   const [validateOnChange, setValidateOnChange] = useState(false);
+  const [success, setSuccess] = useState(false);
+  const placeOrder = api.order.createOrder.useMutation();
 
   const [showStripeForm, setShowStripeForm] = useState(false);
   const [createPaymentIntentError, setCreatePaymentIntentError] = useState<string | null>(null);
@@ -75,6 +77,14 @@ const CheckoutForm = () => {
           shippingPrice,
         });
       } else {
+        placeOrder.mutate(
+          { items, orderData: data, shippingPrice, setAsPaid: false },
+          {
+            onSuccess: () => {
+              setSuccess(true);
+            },
+          }
+        );
         // Create order...
       }
     },
@@ -115,7 +125,7 @@ const CheckoutForm = () => {
             </div>
           </>
         )}
-        {!showStripeForm && (
+        {!showStripeForm && !success && (
           <>
             <Input
               label="First name"
@@ -206,49 +216,60 @@ const CheckoutForm = () => {
         {createPaymentIntentError && values.paymentMode === "pay_online" && (
           <Alert labelClassName="text-sm" color="danger" label={createPaymentIntentError} />
         )}
-        {values.paymentMode === "pay_online" ? (
+        {success && (
+          <div className="w-full flex flex-col text-base items-center gap-2 mt-4 text-green-500">
+            <FontAwesomeIcon icon={faCheck} />
+            <p className="font-semibold text-green-500">Order placed successfully!</p>
+          </div>
+        )}
+        {!success && (
           <>
-            {!showStripeForm && (
+            {values.paymentMode === "pay_online" ? (
+              <>
+                {!showStripeForm && (
+                  <Button
+                    className="w-full"
+                    right={<FontAwesomeIcon icon={faCreditCard} />}
+                    type="submit"
+                    loading={createStripePaymentIntent.isLoading}
+                    disabled={
+                      !!shippingPriceError || !!createStripePaymentIntent.data || showStripeForm
+                    }
+                  >
+                    {createPaymentIntentError ? "Try again!" : "Continue to payment!"}
+                  </Button>
+                )}
+
+                {showStripeForm && !!createStripePaymentIntent.data && (
+                  <Elements
+                    options={{
+                      appearance: {
+                        theme: "stripe",
+                      },
+                      clientSecret: createStripePaymentIntent.data,
+                    }}
+                    stripe={stripePromise}
+                  >
+                    <StripeForm
+                      orderInformation={values}
+                      shippingPrice={shippingPrice as number}
+                      clientSecret={createStripePaymentIntent.data}
+                    />
+                  </Elements>
+                )}
+              </>
+            ) : (
               <Button
                 className="w-full"
-                right={<FontAwesomeIcon icon={faCreditCard} />}
+                right={<FontAwesomeIcon icon={faCheck} />}
                 type="submit"
-                loading={createStripePaymentIntent.isLoading}
-                disabled={
-                  !!shippingPriceError || !!createStripePaymentIntent.data || showStripeForm
-                }
+                disabled={!!shippingPriceError}
+                loading={placeOrder.isLoading}
               >
-                {createPaymentIntentError ? "Try again!" : "Continue to payment!"}
+                Place order!
               </Button>
             )}
-
-            {showStripeForm && !!createStripePaymentIntent.data && (
-              <Elements
-                options={{
-                  appearance: {
-                    theme: "stripe",
-                  },
-                  clientSecret: createStripePaymentIntent.data,
-                }}
-                stripe={stripePromise}
-              >
-                <StripeForm
-                  orderInformation={values}
-                  shippingPrice={shippingPrice as number}
-                  clientSecret={createStripePaymentIntent.data}
-                />
-              </Elements>
-            )}
           </>
-        ) : (
-          <Button
-            className="w-full"
-            right={<FontAwesomeIcon icon={faCheck} />}
-            type="submit"
-            disabled={!!shippingPriceError}
-          >
-            Place order!
-          </Button>
         )}
       </form>
     </div>

@@ -41,7 +41,7 @@ model ProductForOrder {
   quantity  Int
   size      String
   orderId   String
-  order     Order   @relation(fields: [orderId], references: [id], name: "OrderContent")
+  order     Order   @relation(fields: [orderId], references: [id], name: "OrderContent", onDelete: Cascade)
 
   @@map("productForOrder")
 }

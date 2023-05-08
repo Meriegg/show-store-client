@@ -9,7 +9,7 @@ import createDbOrderItems from "@/server/utils/create-db-order-items";
 export const ordersRouter = createTRPCRouter({
   createOrder: publicProcedure
     .input(z.object({ items: CartSchema, shippingPrice: z.number(), orderData: OrderDataSchema, setAsPaid: z.boolean().optional() }))
-    .mutation(async ({ ctx: { prisma, stripe }, input: { items, shippingPrice, orderData, setAsPaid = false } }) => {
+    .mutation(async ({ ctx: { prisma }, input: { items, shippingPrice, orderData, setAsPaid = false } }) => {
       const total = getCartTotal({ items, shippingPrice })
       if (!total.valid || !total.price) {
         throw new TRPCError({

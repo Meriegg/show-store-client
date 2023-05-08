@@ -1,10 +1,13 @@
+import restrictAdmin from '@/server/utils/restrict-admin';
 import { z } from 'zod';
 import { createTRPCRouter, adminProcedure } from "../../trpc";
 import { TRPCError } from '@trpc/server';
 import { StoreConfigSchema } from '@/lib/zod/schemas';
 
 export const adminStoreConfigRouter = createTRPCRouter({
-  createStoreConfig: adminProcedure.input(StoreConfigSchema).mutation(async ({ ctx: { prisma }, input: { isActive = false, ...input } }) => {
+  createStoreConfig: adminProcedure.input(StoreConfigSchema).mutation(async ({ ctx: { prisma, adminSession }, input: { isActive = false, ...input } }) => {
+    restrictAdmin(adminSession)
+
     let newConfig = await prisma.storeConfig.create({
       data: {
         isActive,
@@ -33,7 +36,9 @@ export const adminStoreConfigRouter = createTRPCRouter({
 
     return newConfig;
   }),
-  updateStoreConfig: adminProcedure.input(StoreConfigSchema.extend({ id: z.string() })).mutation(async ({ ctx: { prisma }, input: { id, isActive = false, ...input } }) => {
+  updateStoreConfig: adminProcedure.input(StoreConfigSchema.extend({ id: z.string() })).mutation(async ({ ctx: { prisma, adminSession }, input: { id, isActive = false, ...input } }) => {
+    restrictAdmin(adminSession)
+
     const updatedConfig = await prisma.storeConfig.update({
       where: {
         id
@@ -54,7 +59,9 @@ export const adminStoreConfigRouter = createTRPCRouter({
   }),
   setStoreConfigAsActive: adminProcedure.input(z.object({
     id: z.string()
-  })).mutation(async ({ ctx: { prisma }, input: { id } }) => {
+  })).mutation(async ({ ctx: { prisma, adminSession }, input: { id } }) => {
+    restrictAdmin(adminSession)
+
     // Check if the config exists and that it's not already active
     const existingConfig = await prisma.storeConfig.findUnique({
       where: {
@@ -92,7 +99,9 @@ export const adminStoreConfigRouter = createTRPCRouter({
 
     return activeStoreConfig;
   }),
-  deleteConfig: adminProcedure.input(z.object({ id: z.string() })).mutation(async ({ ctx: { prisma }, input: { id } }) => {
+  deleteConfig: adminProcedure.input(z.object({ id: z.string() })).mutation(async ({ ctx: { prisma, adminSession }, input: { id } }) => {
+    restrictAdmin(adminSession)
+
     const allConfigs = await prisma.storeConfig.findMany();
     if (allConfigs.length <= 1) {
       throw new TRPCError({

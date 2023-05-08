@@ -26,7 +26,16 @@ export const useCart = create<UseCart>((set) => ({
   showItemPreview: false,
   latestItem: null,
   isOpen: false,
-  toggleOpen: () => set(({ isOpen }) => ({ isOpen: !isOpen })),
+  toggleOpen: () => set(({ isOpen }) => {
+    const html = document.querySelector("html");
+    if (html) {
+      html.style.overflow = !isOpen === true ? 'hidden' : 'auto'
+    }
+
+    return {
+      isOpen: !isOpen
+    }
+  }),
   addItem: (item) => set(({ items }) => {
     const idx = items.findIndex((arrItem) => arrItem.baseItem.id === item.baseItem.id && arrItem.size == item.size);
     const isAlreadyExisting = idx !== -1;

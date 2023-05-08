@@ -1,6 +1,7 @@
 import { z } from 'zod';
 import { createTRPCRouter, publicProcedure, adminProcedure } from "../trpc";
 import { TRPCError } from '@trpc/server';
+import restrictAdmin from '@/server/utils/restrict-admin';
 
 export const typesRouter = createTRPCRouter({
   getTypes: publicProcedure.query(async ({ ctx: { prisma } }) => {
@@ -18,7 +19,9 @@ export const typesRouter = createTRPCRouter({
   }),
   createType: adminProcedure.input(z.object({
     name: z.string()
-  })).mutation(async ({ ctx: { prisma }, input: { name } }) => {
+  })).mutation(async ({ ctx: { prisma, adminSession }, input: { name } }) => {
+    restrictAdmin(adminSession)
+
     const newType = await prisma.type.create({
       data: {
         name,
@@ -28,7 +31,9 @@ export const typesRouter = createTRPCRouter({
     return newType;
   }),
   deleteType: adminProcedure.input(z.object({ id: z.string() })).
-    mutation(async ({ ctx: { prisma }, input: { id } }) => {
+    mutation(async ({ ctx: { prisma, adminSession }, input: { id } }) => {
+      restrictAdmin(adminSession)
+
       const deletedType = await prisma.type.delete({
         where: {
           id

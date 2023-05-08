@@ -1,8 +1,8 @@
 "use client";
 
 import LoadingText from "@/components/LoadingText";
-import AddConfigModal from "@/components/application/Admin/storeConfig/addConfigModal";
-import ConfigItem from "@/components/application/Admin/storeConfig/ConfigItem";
+import AddConfigModal from "@/components/application/Admin/StoreConfig/addConfigModal";
+import ConfigItem from "@/components/application/Admin/StoreConfig/ConfigItem";
 import { api } from "@/utils/api";
 
 const StoreValues = () => {

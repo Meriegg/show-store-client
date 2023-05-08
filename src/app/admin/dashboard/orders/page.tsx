@@ -1,6 +1,6 @@
 import Button from "@/components/Button";
 import Link from "next/link";
-import { api } from "@/utils/api";
+import OrderList from "@/components/application/Admin/Orders/OrderList";
 
 const Orders = () => {
   return (
@@ -14,6 +14,7 @@ const Orders = () => {
         </div>
         <hr />
       </div>
+      <OrderList />
     </div>
   );
 };
