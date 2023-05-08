@@ -18,3 +18,10 @@ export const OrderDataSchema = z.object({
   extraDeliveryNotes: z.string().optional(),
   paymentMode: z.union([z.literal("pay_on_delivery"), z.literal("pay_online")]),
 });
+
+export const AdminAccountSchema = z.object({
+  name: z.string(),
+  password: z.string(),
+  passwordType: z.union([z.literal("public"), z.literal("hashed")]),
+  role: z.union([z.literal("owner"), z.literal("local_admin")])
+})

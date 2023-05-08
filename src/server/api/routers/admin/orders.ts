@@ -1,6 +1,5 @@
-import restrictAdmin from "@/server/utils/restrict-admin";
 import { z } from "zod";
-import { createTRPCRouter, adminProcedure } from "../../trpc";
+import { createTRPCRouter, adminProcedure, ownerProcedure } from "../../trpc";
 import { TRPCError } from "@trpc/server";
 
 export const orderRouter = createTRPCRouter({
@@ -31,12 +30,10 @@ export const orderRouter = createTRPCRouter({
 
     return order;
   }),
-  changeOrderStatus: adminProcedure.input(z.object({
+  changeOrderStatus: ownerProcedure.input(z.object({
     id: z.string(),
     status: z.union([z.literal("delivered"), z.literal("in_shipping"), z.literal("in_preparation")])
   })).mutation(async ({ ctx: { prisma, adminSession }, input: { id, status } }) => {
-    restrictAdmin(adminSession)
-
     const modifiedOrder = await prisma.order.update({
       where: {
         id
@@ -54,11 +51,10 @@ export const orderRouter = createTRPCRouter({
 
     return modifiedOrder;
   }),
-  changeOrderPaymentStatus: adminProcedure.input(z.object({
+  changeOrderPaymentStatus: ownerProcedure.input(z.object({
     id: z.string(),
     status: z.union([z.literal("paid"), z.literal("unpaid")])
   })).mutation(async ({ ctx: { prisma, adminSession }, input: { id, status } }) => {
-    restrictAdmin(adminSession)
     const modifiedOrder = await prisma.order.update({
       where: {
         id
@@ -76,9 +72,7 @@ export const orderRouter = createTRPCRouter({
 
     return modifiedOrder;
   }),
-  deleteOrder: adminProcedure.input(z.object({ id: z.string() })).mutation(async ({ ctx: { prisma, adminSession }, input: { id } }) => {
-    restrictAdmin(adminSession)
-
+  deleteOrder: ownerProcedure.input(z.object({ id: z.string() })).mutation(async ({ ctx: { prisma, adminSession }, input: { id } }) => {
     const deletedOrder = await prisma.order.delete({
       where: {
         id

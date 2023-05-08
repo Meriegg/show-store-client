@@ -107,7 +107,7 @@ model AdminSession {
   hashedUserIP          String?
   publicVerificationKey String    @unique
   adminId               String
-  adminUser             AdminUser @relation(fields: [adminId], references: [id], name: "ActiveSessions")
+  adminUser             AdminUser @relation(fields: [adminId], references: [id], name: "ActiveSessions", onDelete: Cascade)
 
   @@map("adminSession")
 }

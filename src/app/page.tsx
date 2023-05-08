@@ -46,7 +46,7 @@ export default function Home() {
       </svg>
       <section
         id="hero"
-        className="sectionPadding w-full max-h-[100vh] min-h-[86vh] overflow-y-hidden relative !pb-0 !mb-0"
+        className="sectionPadding w-full max-h-[100vh] min-h-[86vh] overflow-y-hidden overflow-x-hidden max-w-[100vw] relative !pb-0 !mb-0"
       >
         <div className="absolute top-36 w-[100vh] transform z-0 translate-x-1/3 -rotate-[90deg] flex flex-col gap-4">
           {Array.from(new Array(5)).map((_, idx) => (
@@ -101,7 +101,7 @@ export default function Home() {
         id="about"
         className="border-y-[1px] border-black py-36 flex flex-col items-center relative h-[100vh] overflow-x-hidden max-w-[100vw]"
       >
-        <div className="h-full w-0.5 bg-black absolute right-1/3 top-0 lg:right-32 sm:hidden"></div>
+        <div className="h-full border-l-[1px] border-black absolute right-1/3 top-0 lg:right-32 sm:hidden"></div>
         <p className="text-[96px] md:text-6xl font-bold text-neutral-200 absolute -left-20 bottom-6">
           OUR
           <br /> BRAND
@@ -147,7 +147,7 @@ export default function Home() {
         id="newsletter"
         className="flex relative flex-col items-center sectionPadding !pt-16 gap-6 border-b-[1px] border-black !pb-36"
       >
-        <div className="h-[100vh] absolute top-0 w-[1px] bg-black left-48 lg:left-16 md:hidden"></div>
+        <div className="h-[100vh] absolute top-0 border-l-[1px] border-black left-48 lg:left-16 md:hidden"></div>
         <EditableText as="h1" className="text-5xl font-bold text-center">
           Subscribe to our newsletter
         </EditableText>

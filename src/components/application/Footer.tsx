@@ -4,7 +4,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 const Footer = () => {
   return (
-    <div className="flex flex-col items-center w-fit gap-1">
+    <div className="flex flex-col items-center w-fit gap-1 mb-4">
       <p className="font-semibold text-sm text-neutral-600">
         Site designed and developed by{" "}
         <a href="https://mariodev.vercel.app" className="text-black underline">

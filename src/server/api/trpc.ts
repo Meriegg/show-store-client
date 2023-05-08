@@ -119,6 +119,25 @@ const isAdmin = t.middleware(async ({ ctx: { req, res, prisma }, next }) => {
   });
 });
 
+
+const restrictAdminToOwner = isAdmin.unstable_pipe(async ({ ctx: { req, res, prisma, adminSession }, next }) => {
+  if (adminSession.adminUser.role !== "owner") {
+    throw new TRPCError({
+      code: "UNAUTHORIZED",
+      message: 'You are not authorized to perform this action!'
+    })
+  }
+
+  return next({
+    ctx: {
+      prisma,
+      req,
+      res,
+    }
+  });
+});
+
 export const createTRPCRouter = t.router;
 export const adminProcedure = t.procedure.use(isAdmin)
+export const ownerProcedure = t.procedure.use(restrictAdminToOwner)
 export const publicProcedure = t.procedure;
