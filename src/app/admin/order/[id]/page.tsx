@@ -64,11 +64,11 @@ const Order = () => {
       <p className="text-sm text-neutral-600 font-semibold">{data.id}</p>
 
       <div className="flex justify-between items-start flex-wrap gap-6">
-        <div className="flex flex-col">
+        <div className="flex flex-col ">
           <div className="flex flex-col gap-4 mt-6">
             <p className="text-lg font-semibold">Client details</p>
 
-            <div className="flex items-start gap-4">
+            <div className="flex items-start flex-wrap gap-4">
               <div className="flex flex-col font-semibold">
                 <p className="text-neutral-600 text-sm">Full Name</p>
                 <p>
@@ -94,7 +94,7 @@ const Order = () => {
           <div className="flex flex-col gap-4 mt-6">
             <p className="text-lg font-semibold">Order</p>
 
-            <div className="flex items-start gap-4">
+            <div className="flex items-start flex-wrap gap-4">
               <div className="flex flex-col font-semibold">
                 <p className="text-neutral-600 text-sm">Total</p>
                 <p>{data.orderTotal}$</p>
@@ -117,7 +117,7 @@ const Order = () => {
               </div>
             </div>
           </div>
-          <div className="flex flex-col gap-4 mt-6 font-semibold">
+          <div className="flex flex-col gap-4 mt-6 flex-wrap font-semibold">
             <p className="text-lg font-semibold">Order actions</p>
 
             <div className="flex flex-col gap-2">
@@ -150,7 +150,7 @@ const Order = () => {
               </Button>
             </div>
 
-            <div className="flex items-center gap-2">
+            <div className="flex items-center gap-2 flex-wrap">
               <Button
                 rounded="full"
                 loading={changeOrderPaymentStatus.isLoading}

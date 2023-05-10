@@ -9,7 +9,6 @@ const Layout = ({ children }: { children: React.ReactNode }) => {
   const path = usePathname();
 
   const adminRoutes = [
-    { text: "Overview", href: "/admin/dashboard" },
     { text: "Orders", href: "/admin/dashboard/orders" },
     { text: "Product Types", href: "/admin/dashboard/producttypes" },
     { text: "Products", href: "/admin/dashboard/products" },
@@ -19,8 +18,8 @@ const Layout = ({ children }: { children: React.ReactNode }) => {
 
   return (
     <div className="sectionPadding flex flex-col gap-6">
-      <div className="flex items-center justify-between">
-        <div className="flex items-center gap-2">
+      <div className="flex items-center justify-between flex-wrap gap-6">
+        <div className="flex flex-wrap items-center gap-2">
           {adminRoutes.map((route, idx) => {
             const isSelected = route.href === path;
 

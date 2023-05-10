@@ -2,6 +2,7 @@ import "./globals.css";
 import Navbar from "@/components/application/Navbar";
 import CartItemPreview from "@/components/application/Store/CartItemPreview";
 import CartModal from "@/components/application/CartModal";
+import Guide from "@/components/application/Guide/Guide";
 import { TrpcProvider } from "@/utils/Providers";
 import { DM_Sans } from "next/font/google";
 
@@ -19,6 +20,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           <CartModal />
           <Navbar />
           <CartItemPreview />
+          <Guide />
           {children}
           <div id="MODAL_CONTAINER"></div>
         </body>
