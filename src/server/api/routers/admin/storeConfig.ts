@@ -1,10 +1,10 @@
 import { z } from 'zod';
-import { createTRPCRouter, adminProcedure } from "../../trpc";
+import { createTRPCRouter, adminProcedure, ownerProcedure } from "../../trpc";
 import { TRPCError } from '@trpc/server';
 import { StoreConfigSchema } from '@/lib/zod/schemas';
 
 export const adminStoreConfigRouter = createTRPCRouter({
-  createStoreConfig: adminProcedure.input(StoreConfigSchema).mutation(async ({ ctx: { prisma, adminSession }, input: { isActive = false, ...input } }) => {
+  createStoreConfig: ownerProcedure.input(StoreConfigSchema).mutation(async ({ ctx: { prisma, adminSession }, input: { isActive = false, ...input } }) => {
     let newConfig = await prisma.storeConfig.create({
       data: {
         isActive,
@@ -33,7 +33,7 @@ export const adminStoreConfigRouter = createTRPCRouter({
 
     return newConfig;
   }),
-  updateStoreConfig: adminProcedure.input(StoreConfigSchema.extend({ id: z.string() })).mutation(async ({ ctx: { prisma, adminSession }, input: { id, isActive = false, ...input } }) => {
+  updateStoreConfig: ownerProcedure.input(StoreConfigSchema.extend({ id: z.string() })).mutation(async ({ ctx: { prisma, adminSession }, input: { id, isActive = false, ...input } }) => {
     const updatedConfig = await prisma.storeConfig.update({
       where: {
         id
@@ -52,7 +52,7 @@ export const adminStoreConfigRouter = createTRPCRouter({
 
     return updatedConfig;
   }),
-  setStoreConfigAsActive: adminProcedure.input(z.object({
+  setStoreConfigAsActive: ownerProcedure.input(z.object({
     id: z.string()
   })).mutation(async ({ ctx: { prisma, adminSession }, input: { id } }) => {
     // Check if the config exists and that it's not already active
@@ -92,7 +92,7 @@ export const adminStoreConfigRouter = createTRPCRouter({
 
     return activeStoreConfig;
   }),
-  deleteConfig: adminProcedure.input(z.object({ id: z.string() })).mutation(async ({ ctx: { prisma, adminSession }, input: { id } }) => {
+  deleteConfig: ownerProcedure.input(z.object({ id: z.string() })).mutation(async ({ ctx: { prisma, adminSession }, input: { id } }) => {
     const allConfigs = await prisma.storeConfig.findMany();
     if (allConfigs.length <= 1) {
       throw new TRPCError({
