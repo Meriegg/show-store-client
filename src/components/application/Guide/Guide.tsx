@@ -2,13 +2,24 @@
 
 import Button from "@/components/Button";
 import clsx from "clsx";
-import { HomeDialogue, InitializationDialogue } from "./dialogues";
+import {
+  CheckoutDialogue,
+  HomeDialogue,
+  InitializationDialogue,
+  ProductPageDialogue,
+  StoreDialogue,
+} from "./dialogues";
 import { usePathname } from "next/navigation";
 import { type ReactNode, useEffect, useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faExclamation } from "@fortawesome/free-solid-svg-icons";
 
-export type DialogueName = "InitializationDialogue" | "HomeDialogue";
+export type DialogueName =
+  | "InitializationDialogue"
+  | "HomeDialogue"
+  | "StoreDialogue"
+  | "CheckoutDialogue"
+  | "ProductDialogue";
 export type DialogueEvent = "next" | "prev" | "holdKnife" | "dropKnife" | "finish";
 
 export interface Dialogue {
@@ -69,6 +80,8 @@ const Guide = () => {
 
   const dialogues = {
     "/": HomeDialogue,
+    "/store": StoreDialogue,
+    "/checkout": CheckoutDialogue,
   };
 
   const checkForInitialization = () => {
@@ -97,6 +110,8 @@ const Guide = () => {
     const pathDialogue = dialogues[path as PageDialoguesKey];
 
     if (!pathDialogue) {
+      setActiveDialogue(null);
+      setActiveStep(0);
       return;
     }
 
@@ -153,6 +168,7 @@ const Guide = () => {
   };
 
   useEffect(() => {
+    // Solves next.js hydration error
     setComponentMounted(true);
   }, []);
 
@@ -181,7 +197,7 @@ const Guide = () => {
     <div
       className="flex flex-col items-start fixed bottom-6 right-6 z-40"
       style={{
-        width: "min(350px, 100%)",
+        width: "min(400px, 100%)",
       }}
     >
       <div>

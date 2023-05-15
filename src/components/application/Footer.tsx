@@ -13,7 +13,7 @@ const Footer = () => {
       </p>
       <p className="font-semibold text-sm text-neutral-600">&copy; 2023 All rights reserved.</p>
       <div className="h-[1px] w-full bg-neutral-300"></div>
-      <div className="flex gap-4 justify-center w-full">
+      <div className="flex gap-4 justify-center items-center w-full px-2">
         <a
           href="mailto://mario.developer.contact@gmail.com"
           className="text-lg text-neutral-600 hover:text-neutral-900"
@@ -31,6 +31,13 @@ const Footer = () => {
           className="text-lg text-neutral-600 hover:text-neutral-900"
         >
           <FontAwesomeIcon icon={faInstagram} />
+        </a>
+        <div className="h-full border-l-[2px] border-neutral-300"></div>
+        <a
+          href="https://www.freepik.com/free-vector/military-knife-template_8136751.htm#query=knife%20svg&position=0&from_view=keyword&track=ais"
+          className="text-sm font-semibold text-neutral-600"
+        >
+          Knife image by dgim-studio on Freepik
         </a>
       </div>
 

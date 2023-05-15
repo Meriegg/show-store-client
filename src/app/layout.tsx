@@ -12,6 +12,20 @@ const dmSans = DM_Sans({
   variable: "--font-dm",
 });
 
+export const metadata = {
+  title: "SHOW STORE | MarioDev | E-commerce demo",
+  publisher: "MarioDev",
+  authors: [{ name: "MarioDev", url: "https://mariodev.vercel.app" }],
+  creator: "MarioDev",
+  description:
+    "Demo e-commerce website with a fully working admin dashboard and stripe integration.",
+  keywords: ["e-commerce", "demo e-commerce", "tRPC", "Next.js 13"],
+  applicationName: "SHOW STORE | E-commerce demo",
+  icons: {
+    icon: "/favicon.svg",
+  },
+};
+
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <TrpcProvider>
