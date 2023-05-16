@@ -1,4 +1,5 @@
 import CardNumber from "./CardNumber";
+import HighlightText from "./HighlightText";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import type { Dialogue } from "./Guide";
 import {
@@ -219,6 +220,136 @@ export const CheckoutDialogue: Dialogue = {
       actions: {
         events: ["finish"],
         buttonContent: "Okay!",
+      },
+    },
+  ],
+};
+
+export const AdminLoginDialogue: Dialogue = {
+  name: "AdminLogin",
+  steps: [
+    {
+      content: (
+        <p>
+          Press <HighlightText>Use a Preview account</HighlightText>
+          to continue!
+        </p>
+      ),
+      actions: {
+        events: ["finish"],
+        buttonContent: "Okay",
+      },
+    },
+  ],
+};
+
+export const AdminOrdersDialogue: Dialogue = {
+  name: "AdminOrders",
+  steps: [
+    {
+      content: (
+        <p>
+          Here you can view all orders. Try to find yours or just press on a random one and explore!
+        </p>
+      ),
+      actions: {
+        events: ["finish"],
+        buttonContent: "Okay",
+      },
+    },
+  ],
+};
+
+export const AdminProductTypesDialogue: Dialogue = {
+  name: "AdminProductTypes",
+  steps: [
+    {
+      content: (
+        <p>
+          Here you can view all product types displayed on products and on the store filter. You can
+          add one by pressing <HighlightText>Add type</HighlightText>. Keep in mind that you are not
+          authorized to modify store values, you can only see the UI.
+        </p>
+      ),
+      actions: {
+        events: ["finish"],
+        buttonContent: "Okay",
+      },
+    },
+  ],
+};
+
+export const AdminProductsDialogue: Dialogue = {
+  name: "AdminProducts",
+  steps: [
+    {
+      content: (
+        <p>
+          Here you can view all live products, you can add a new product by pressing{" "}
+          <HighlightText>Add product</HighlightText> or you can edit a product. Try it out!
+        </p>
+      ),
+      actions: {
+        events: ["finish"],
+        buttonContent: "Okay!",
+      },
+    },
+  ],
+};
+
+export const AdminAddProductDialogue: Dialogue = {
+  name: "AdminAddProduct",
+  steps: [
+    {
+      content: (
+        <p>
+          Here you can add a new product. Keep in mind that you can only view the UI and not make
+          modifications to the live website in order to avoid inappropriate content!
+        </p>
+      ),
+      actions: {
+        events: ["finish"],
+        buttonContent: "Okay",
+      },
+    },
+  ],
+};
+
+export const AdminStoreConfigsDialogue: Dialogue = {
+  name: "AdminStoreConfigs",
+  steps: [
+    {
+      content: (
+        <p>
+          Here you can view all store configurations. Store configurations currently control only
+          the items display on the home page's horizontal list and the shipping price. To add one
+          you can press <HighlightText>Add a configuration</HighlightText>, keep in mind that you
+          can only view the UI!
+        </p>
+      ),
+      actions: {
+        events: ["finish"],
+        buttonContent: "Okay",
+      },
+    },
+  ],
+};
+
+export const AdminAccountsDialogue: Dialogue = {
+  name: "AdminAccounts",
+  steps: [
+    {
+      content: (
+        <p>
+          Here you can view and manage all authorized accounts. To add a new account you can press{" "}
+          <HighlightText>Add account</HighlightText>. Accounts can have 2 password types, a public
+          password only used for preview accounts and a hashed password typically used for owner
+          (admin) accounts. Keep in mind that you can only view and interact with the UI!
+        </p>
+      ),
+      actions: {
+        events: ["finish"],
+        buttonContent: "Okay",
       },
     },
   ],

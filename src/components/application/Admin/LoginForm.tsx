@@ -12,14 +12,17 @@ import { useFormik } from "formik";
 import { useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faXmark } from "@fortawesome/free-solid-svg-icons";
+import { useRouter } from "next/navigation";
 
 const AdminLogin = () => {
+  const router = useRouter();
   const [didSubmit, setDidSubmit] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const ctx = api.useContext();
   const login = api.admin.auth.login.useMutation({
     onSuccess: () => {
       ctx.admin.data.me.invalidate();
+      router.push("/admin/dashboard");
     },
     onError: (error) => {
       setError(error?.message);

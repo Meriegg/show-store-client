@@ -5,6 +5,9 @@ import Modal from "@/components/Modal";
 import Chip from "@/components/Chip";
 import Button from "@/components/Button";
 import Product from "@/components/application/Store/Product";
+import Input from "@/components/Input";
+import LoadingText from "@/components/LoadingText";
+import clsx from "clsx";
 import { useFormik } from "formik";
 import { faChevronLeft, faPlus } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -12,13 +15,12 @@ import { useRouter } from "next/navigation";
 import { z } from "zod";
 import { toFormikValidationSchema } from "zod-formik-adapter";
 import { useState } from "react";
-import Input from "@/components/Input";
+import { useToast } from "@/components/use-toast";
 import { api } from "@/utils/api";
-import LoadingText from "@/components/LoadingText";
-import clsx from "clsx";
 
 const AddProduct = () => {
   const router = useRouter();
+  const { toast } = useToast();
   const {
     isLoading: typesLoading,
     error: typesError,
@@ -30,6 +32,12 @@ const AddProduct = () => {
       router.push("/admin/dashboard/products");
       ctx.products.getProducts.invalidate();
       ctx.types.getTypes.invalidate();
+    },
+    onError: (error) => {
+      toast({
+        title: "Error",
+        description: error.message || "An error happened!",
+      });
     },
   });
   const [didSubmit, setDidSubmit] = useState(false);

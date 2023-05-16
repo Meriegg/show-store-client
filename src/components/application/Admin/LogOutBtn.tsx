@@ -10,7 +10,7 @@ const LogOutBtn = () => {
   const router = useRouter();
   const logOut = api.admin.auth.logout.useMutation({
     onSuccess: () => {
-      router.push("/admin");
+      router.push("/admin/login");
     },
   });
 

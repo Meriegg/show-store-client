@@ -2,11 +2,18 @@
 
 import Button from "@/components/Button";
 import clsx from "clsx";
+import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/tooltip";
 import {
+  AdminAccountsDialogue,
+  AdminAddProductDialogue,
+  AdminLoginDialogue,
+  AdminOrdersDialogue,
+  AdminProductTypesDialogue,
+  AdminProductsDialogue,
+  AdminStoreConfigsDialogue,
   CheckoutDialogue,
   HomeDialogue,
   InitializationDialogue,
-  ProductPageDialogue,
   StoreDialogue,
 } from "./dialogues";
 import { usePathname } from "next/navigation";
@@ -19,7 +26,14 @@ export type DialogueName =
   | "HomeDialogue"
   | "StoreDialogue"
   | "CheckoutDialogue"
-  | "ProductDialogue";
+  | "ProductDialogue"
+  | "AdminLogin"
+  | "AdminOrders"
+  | "AdminProductTypes"
+  | "AdminProducts"
+  | "AdminAccounts"
+  | "AdminStoreConfigs"
+  | "AdminAddProduct";
 export type DialogueEvent = "next" | "prev" | "holdKnife" | "dropKnife" | "finish";
 
 export interface Dialogue {
@@ -82,6 +96,13 @@ const Guide = () => {
     "/": HomeDialogue,
     "/store": StoreDialogue,
     "/checkout": CheckoutDialogue,
+    "/admin/login": AdminLoginDialogue,
+    "/admin/dashboard/orders": AdminOrdersDialogue,
+    "/admin/dashboard/producttypes": AdminProductTypesDialogue,
+    "/admin/addProduct": AdminAddProductDialogue,
+    "/admin/dashboard/accounts": AdminAccountsDialogue,
+    "/admin/dashboard/storeConfig": AdminStoreConfigsDialogue,
+    "/admin/dashboard/products": AdminProductsDialogue,
   };
 
   const checkForInitialization = () => {
@@ -182,12 +203,21 @@ const Guide = () => {
 
   if (isFinished) {
     return (
-      <button
-        onClick={() => handleHelpRestart()}
-        className="fixed transition-all duration-300 cursor-pointer hover:shadow-md shadow-neutral-200 hover:text-neutral-900 hover:bg-neutral-200 z-50 bottom-4 right-4 w-[50px] h-[50px] bg-neutral-100 rounded-full text-lg text-neutral-700"
-      >
-        <FontAwesomeIcon icon={faExclamation} />
-      </button>
+      <TooltipProvider>
+        <Tooltip>
+          <TooltipContent>
+            <p>Wake up your guide</p>
+          </TooltipContent>
+          <TooltipTrigger asChild>
+            <button
+              onClick={() => handleHelpRestart()}
+              className="fixed transition-all duration-300 cursor-pointer hover:shadow-md shadow-neutral-200 hover:text-neutral-900 hover:bg-neutral-200 z-50 bottom-4 right-4 w-[50px] h-[50px] bg-neutral-100 rounded-full text-lg text-neutral-700"
+            >
+              <FontAwesomeIcon icon={faExclamation} />
+            </button>
+          </TooltipTrigger>
+        </Tooltip>
+      </TooltipProvider>
     );
   }
 
