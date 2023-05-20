@@ -36,6 +36,7 @@ const EditableText = ({
   const widthTrackElementRef = useRef<null | HTMLParagraphElement>(null);
   const { styles, attributes } = usePopper(referenceElement, popperElement, {
     placement: "top-end",
+    strategy: "fixed",
   });
 
   const cancelChanges = () => {
@@ -95,7 +96,7 @@ const EditableText = ({
       >
         {newContent}
       </p>
-      <div ref={setPopperElement}>
+      <div ref={setReferenceElement}>
         {isEditing && (
           <>
             {inputType !== "textarea" ? (
@@ -129,7 +130,6 @@ const EditableText = ({
         {!isEditing && (
           <Tag
             className={clsx("break-words", className)}
-            ref={setReferenceElement}
             onMouseEnter={() => {
               setShowEditButton(true);
             }}

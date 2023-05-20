@@ -1,11 +1,12 @@
 "use client";
 
 import { Popover, PopoverContent, PopoverTrigger } from "../popover";
-import { faCode, faGear } from "@fortawesome/free-solid-svg-icons";
+import { faCode, faEnvelope, faGear } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useEffect, useState } from "react";
 import Button from "../Button";
 import Link from "next/link";
+import { faGithub, faInstagram } from "@fortawesome/free-brands-svg-icons";
 
 const SettingsPopover = () => {
   const [isMounted, setMounted] = useState(false);
@@ -25,12 +26,45 @@ const SettingsPopover = () => {
           <FontAwesomeIcon icon={faGear} />
         </button>
       </PopoverTrigger>
-      <PopoverContent className="w-80 px-2 py-2">
+      <PopoverContent className="w-80 px-2 py-4 font-semibold flex flex-col gap-4">
+        <div className="flex items-center gap-2">
+          <div className="flex-grow border-t-[1px] border-neutral-200"></div>
+          <p className="w-fit text-sm text-neutral-800">Admin</p>
+          <div className="flex-grow border-t-[1px] border-neutral-200"></div>
+        </div>
         <Link href="/admin">
           <Button left={<FontAwesomeIcon icon={faCode} />} className="w-full" variant="ghost">
             Go to admin dashboard
           </Button>
         </Link>
+        <div className="flex items-center gap-2">
+          <div className="flex-grow border-t-[1px] border-neutral-200"></div>
+          <p className="w-fit text-sm text-neutral-800">Contact me</p>
+          <div className="flex-grow border-t-[1px] border-neutral-200"></div>
+        </div>
+        <div className="flex items-center gap-4 justify-center flex-wrap">
+          <a
+            href="mailto://mario.developer.contact@gmail.com"
+            className="text-lg text-neutral-600 hover:text-neutral-900 flex items-center gap-2"
+          >
+            <FontAwesomeIcon icon={faEnvelope} />
+            <span className="text-sm">Email</span>
+          </a>
+          <a
+            href="https://github.com/Meriegg"
+            className="text-lg text-neutral-600 hover:text-neutral-900 flex items-center gap-2"
+          >
+            <FontAwesomeIcon icon={faGithub} />
+            <span className="text-sm">Github</span>
+          </a>
+          <a
+            href="https://www.instagram.com/meriofrog/"
+            className="text-lg text-neutral-600 hover:text-neutral-900 flex items-center gap-2"
+          >
+            <FontAwesomeIcon icon={faInstagram} />
+            <span className="text-sm">Instagram</span>
+          </a>
+        </div>
       </PopoverContent>
     </Popover>
   );

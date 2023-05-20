@@ -42,6 +42,7 @@ const Menu = ({ isOpen, setOpen, links }: Props) => {
               "font-semibold text-neutral-700 hover:text-black transition-all duration-300 text-lg flex items-center gap-2",
               pathName === link.href && "!text-black"
             )}
+            onClick={() => setOpen(false)}
           >
             {link.text}
             <FontAwesomeIcon className="w-4 h-4" icon={link.icon} />
