@@ -1,0 +1,8 @@
+{
+  "crons": [
+    {
+      "path": "/api/supabaseDbCron",
+      "schedule": "0 5 * * *"
+    }
+  ]
+}
