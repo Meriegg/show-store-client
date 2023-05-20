@@ -10,15 +10,24 @@ import { useFormik } from "formik";
 import { useState } from "react";
 import { z } from "zod";
 import { toFormikValidationSchema } from "zod-formik-adapter";
+import { useToast } from "@/components/use-toast";
 
 const AddTypeModal = () => {
   const [isOpen, setOpen] = useState(false);
   const [didSubmit, setDidSubmit] = useState(false);
+  const { toast } = useToast();
   const ctx = api.useContext();
   const addType = api.types.createType.useMutation({
     onSuccess: () => {
       ctx.types.getTypes.invalidate();
       setOpen(false);
+    },
+    onError: (error) => {
+      toast({
+        title: "Error",
+        description: error.message || "Something went wrong.",
+        variant: "destructive",
+      });
     },
   });
 

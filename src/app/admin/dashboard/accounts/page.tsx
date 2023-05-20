@@ -1,8 +1,7 @@
-import Button from "@/components/Button";
 import AddAccountModal from "@/components/application/Admin/accounts/AddAccountModal";
 import AccountList from "@/components/application/Admin/accounts/List";
 
-export default () => {
+const Accounts = () => {
   return (
     <div>
       <div className="flex w-full flex-col gap-2">
@@ -16,3 +15,5 @@ export default () => {
     </div>
   );
 };
+
+export default Accounts;

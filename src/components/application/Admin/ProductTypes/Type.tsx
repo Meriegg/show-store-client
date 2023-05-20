@@ -6,6 +6,7 @@ import Product, { ProductWithTypes } from "../../Store/Product";
 import { useState } from "react";
 import { api } from "@/utils/api";
 import type { Type as ProductType } from "@prisma/client";
+import { useToast } from "@/components/use-toast";
 
 export type Type = {
   products: ProductType[];
@@ -17,10 +18,18 @@ interface Props {
 
 const ProductType = ({ productType }: Props) => {
   const [showProducts, setShowProducts] = useState(false);
+  const { toast } = useToast();
   const ctx = api.useContext();
   const deleteTypeMutation = api.types.deleteType.useMutation({
     onSuccess: () => {
       ctx.types.getTypes.invalidate();
+    },
+    onError: (error) => {
+      toast({
+        title: "Error",
+        description: error.message || "Something went wrong.",
+        variant: "destructive",
+      });
     },
   });
 

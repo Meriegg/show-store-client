@@ -6,8 +6,9 @@ import LoadingText from "@/components/LoadingText";
 import OrderStatusDisplay from "@/components/application/Admin/Orders/OrderStatusDisplay";
 import PaymentModeDisplay from "@/components/application/Admin/Orders/PaymentModeDisplay";
 import PaymentStatusDisplay from "@/components/application/Admin/Orders/PaymentStatusDisplay";
-import { api } from "@/utils/api";
 import formatOrderStatus from "@/utils/format-order-status";
+import { api } from "@/utils/api";
+import { useToast } from "@/components/use-toast";
 import { faChevronLeft } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { OrderStatus } from "@prisma/client";
@@ -17,6 +18,7 @@ import { useState } from "react";
 const Order = () => {
   const router = useRouter();
   const params = useParams();
+  const { toast } = useToast();
   const [newOrderStatus, setNewOrderStatus] = useState<OrderStatus | null>(null);
   const ctx = api.useContext();
   const { isLoading, error, data } = api.admin.orders.getOrder.useQuery({
@@ -26,16 +28,37 @@ const Order = () => {
     onSuccess: () => {
       ctx.admin.orders.invalidate();
     },
+    onError: (error) => {
+      toast({
+        title: "Error",
+        description: error.message || "Something went wrong.",
+        variant: "destructive",
+      });
+    },
   });
   const changeOrderPaymentStatus = api.admin.orders.changeOrderPaymentStatus.useMutation({
     onSuccess: () => {
       ctx.admin.orders.invalidate();
+    },
+    onError: (error) => {
+      toast({
+        title: "Error",
+        description: error.message || "Something went wrong.",
+        variant: "destructive",
+      });
     },
   });
   const deleteOrder = api.admin.orders.deleteOrder.useMutation({
     onSuccess: () => {
       ctx.admin.orders.invalidate();
       router.push("/admin/dashboard/orders");
+    },
+    onError: (error) => {
+      toast({
+        title: "Error",
+        description: error.message || "Something went wrong.",
+        variant: "destructive",
+      });
     },
   });
 

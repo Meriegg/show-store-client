@@ -36,7 +36,8 @@ const AddProduct = () => {
     onError: (error) => {
       toast({
         title: "Error",
-        description: error.message || "An error happened!",
+        description: error.message || "Something went wrong.",
+        variant: "destructive",
       });
     },
   });
@@ -176,6 +177,7 @@ const AddProduct = () => {
                       as="button"
                       // @ts-expect-error
                       type="button"
+                      key={idx}
                       variant={isSelected ? "filled" : "outline"}
                       onClick={() => {
                         if (isSelected) {

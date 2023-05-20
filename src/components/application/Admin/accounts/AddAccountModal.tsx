@@ -10,6 +10,7 @@ import { useFormik } from "formik";
 import { useState } from "react";
 import { AdminAccountSchema } from "@/lib/zod/schemas";
 import { api } from "@/utils/api";
+import { useToast } from "@/components/use-toast";
 import PasswordInput from "@/components/PasswordInput";
 import Radio from "@/components/Radio";
 
@@ -17,6 +18,7 @@ const AddAccountModal = () => {
   const [isOpen, setOpen] = useState(false);
   const [error, setError] = useState<string | null>();
   const ctx = api.useContext();
+  const { toast } = useToast();
   const createAccount = api.admin.accounts.createAccount.useMutation({
     onSuccess: () => {
       ctx.admin.accounts.invalidate();
@@ -25,7 +27,11 @@ const AddAccountModal = () => {
       setOpen(false);
     },
     onError: (error) => {
-      setError(error.message);
+      toast({
+        title: "Error",
+        description: error.message || "Something went wrong.",
+        variant: "destructive",
+      });
     },
   });
   const validationSchema = AdminAccountSchema;

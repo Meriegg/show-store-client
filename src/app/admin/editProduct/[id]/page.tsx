@@ -8,6 +8,7 @@ import Input from "@/components/Input";
 import LoadingText from "@/components/LoadingText";
 import clsx from "clsx";
 import Alert from "@/components/Alert";
+import { useToast } from "@/components/use-toast";
 import { useFormik } from "formik";
 import { faChevronLeft, faPlus } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -20,6 +21,7 @@ import { api } from "@/utils/api";
 const EditProduct = () => {
   const router = useRouter();
   const params = useParams();
+  const { toast } = useToast();
   const {
     isLoading: productLoading,
     error: productError,
@@ -38,6 +40,13 @@ const EditProduct = () => {
       router.push("/admin/dashboard/products");
       ctx.products.getProducts.invalidate();
       ctx.types.getTypes.invalidate();
+    },
+    onError: (error) => {
+      toast({
+        title: "Error",
+        description: error.message || "Something went wrong.",
+        variant: "destructive",
+      });
     },
   });
   const [didSubmit, setDidSubmit] = useState(false);
@@ -192,6 +201,7 @@ const EditProduct = () => {
 
                   return (
                     <Chip
+                      key={idx}
                       as="button"
                       // @ts-expect-error
                       type="button"

@@ -53,7 +53,7 @@ const AdminLogin = () => {
     },
   });
 
-  const usePreviewAccount = () => {
+  const setPreviewAccount = () => {
     setFieldValue("name", previewData.name);
     setFieldValue("password", previewData.password);
   };
@@ -117,7 +117,7 @@ const AdminLogin = () => {
         <Button loading={login.isLoading} type="submit">
           Continue!
         </Button>
-        <Button type="button" onClick={() => usePreviewAccount()} variant="ghost">
+        <Button type="button" onClick={() => setPreviewAccount()} variant="ghost">
           Use Preview Account!
         </Button>
       </form>

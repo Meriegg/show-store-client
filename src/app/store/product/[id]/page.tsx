@@ -72,8 +72,10 @@ const ViewProduct = async ({ params }: { params: { id: string | null } }) => {
           <div className="flex items-center gap-2 font-semibold">
             <p className="text-neutral-600">types:</p>
             <div className="flex items-center gap-2 flex-wrap">
-              {product.types.map((type) => (
-                <p className="text-neutral-900">@{type.name}</p>
+              {product.types.map((type, idx) => (
+                <p className="text-neutral-900" key={idx}>
+                  @{type.name}
+                </p>
               ))}
             </div>
           </div>

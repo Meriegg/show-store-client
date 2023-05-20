@@ -15,7 +15,7 @@ const HomeExplore = () => {
       id="explore"
       className="border-b-[1px] border-black sectionPadding flex flex-col items-start justify-center h-[100vh]"
     >
-      <EditableText className="font-bold text-4xl" allowHTML>
+      <EditableText storageKey="EXPLORE_TITLE" className="font-bold text-4xl" allowHTML>
         You Explore.
         <br /> We deliver
       </EditableText>

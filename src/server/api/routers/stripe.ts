@@ -29,7 +29,6 @@ export const stripeRouter = createTRPCRouter({
         })
       }
 
-      console.log(Math.round(total.price * 100))
       const newPaymentIntent = await stripe.paymentIntents.create({
         amount: Math.round(total.price * 100),
         currency: 'usd',

@@ -5,6 +5,7 @@ import clsx from "clsx";
 import Button from "@/components/Button";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTrash } from "@fortawesome/free-solid-svg-icons";
+import { useToast } from "@/components/use-toast";
 
 type Account = AdminUser & {
   activeSessions: AdminSession[];
@@ -15,11 +16,19 @@ interface Props {
 }
 
 const Account = ({ account }: Props) => {
+  const { toast } = useToast();
   const ctx = api.useContext();
   const me = api.admin.data.me.useQuery();
   const deleteAccount = api.admin.accounts.deleteAccount.useMutation({
     onSuccess: () => {
       ctx.admin.accounts.invalidate();
+    },
+    onError: (error) => {
+      toast({
+        title: "Error",
+        description: error.message || "Something went wrong.",
+        variant: "destructive",
+      });
     },
   });
 

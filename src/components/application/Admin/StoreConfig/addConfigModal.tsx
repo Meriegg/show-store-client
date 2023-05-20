@@ -13,12 +13,14 @@ import { useState } from "react";
 import { api } from "@/utils/api";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPlus, faTrash, faXmark } from "@fortawesome/free-solid-svg-icons";
+import { useToast } from "@/components/use-toast";
 
 const AddConfigModal = () => {
   const [isOpen, setOpen] = useState(false);
   const [validateOnChange, setValidateOnChange] = useState(false);
   const [listItemVal, setListItemVal] = useState("");
   const [createError, setCreateError] = useState<string | null>(null);
+  const { toast } = useToast();
   const ctx = api.useContext();
   const createConfig = api.admin.storeConfig.createStoreConfig.useMutation({
     onSuccess: () => {
@@ -28,6 +30,11 @@ const AddConfigModal = () => {
     },
     onError: (error) => {
       setCreateError(error.message);
+      toast({
+        title: "Error",
+        description: error.message || "Something went wrong.",
+        variant: "destructive",
+      });
     },
   });
 

@@ -1,3 +1,5 @@
 import LoadingText from "@/components/LoadingText";
 
-export default () => <LoadingText customLabel="Loading product" />;
+const Loading = () => <LoadingText customLabel="Loading product" />;
+
+export default Loading;

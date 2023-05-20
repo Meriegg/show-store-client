@@ -4,11 +4,15 @@ import clsx from "clsx";
 import CartItem from "./Store/CartItem";
 import Button from "../Button";
 import Link from "next/link";
+import { api } from "@/utils/api";
 import { faXmark, faCartShopping } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useCart } from "@/lib/zustand/useCart";
+import { calcCartTotal } from "@/utils/calc-total";
+import LoadingText from "../LoadingText";
 
 const CartModal = () => {
+  const { isLoading, error, data, isError } = api.storeConfig.getShippingPrice.useQuery();
   const { isOpen, toggleOpen, items } = useCart((state) => state);
 
   return (
@@ -50,7 +54,27 @@ const CartModal = () => {
           </div>
         )}
         {!!items.length && (
-          <div className="w-full">
+          <div className="w-full flex-col gap-2 font-semibold">
+            {isLoading && !data && <LoadingText customLabel="Calculating total" />}
+            {(isError || error) && (
+              <p className="text-sm my-2 text-red-500">Could not calculate price</p>
+            )}
+            {!isLoading && !isError && !error && (
+              <div className="flex flex-col border-t-[1px] border-neutral-200 py-2">
+                <div className="flex w-full items-center justify-between text-sm">
+                  <p className="text-neutral-600">Subtotal: </p>
+                  <p className="text-base">{calcCartTotal(items)}$</p>
+                </div>
+                <p className="text-red-500 w-full text-right text-sm">
+                  +{data.toString()}$ shipping
+                </p>
+                <div className="border-t-[1px] border-neutral-200 my-1"></div>
+                <div className="w-full flex justify-between items-center">
+                  <p className="text-sm text-neutral-600">Total: </p>
+                  <p>{parseFloat((calcCartTotal(items) + data).toFixed(2))}$</p>
+                </div>
+              </div>
+            )}
             <Link href="/checkout">
               <Button
                 onClick={() => toggleOpen()}

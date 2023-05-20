@@ -4,7 +4,7 @@ import CartItemPreview from "@/components/application/Store/CartItemPreview";
 import CartModal from "@/components/application/CartModal";
 import Guide from "@/components/application/Guide/Guide";
 import SettingsPopover from "@/components/application/SettingsPopover";
-import { Toast, ToastProvider } from "@/components/toast";
+import { Toaster } from "@/components/toaster";
 import { TrpcProvider } from "@/utils/Providers";
 import { DM_Sans } from "next/font/google";
 
@@ -33,16 +33,14 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
     <TrpcProvider>
       <html lang="en" className={dmSans.className}>
         <body>
-          <ToastProvider>
-            <CartModal />
-            <Navbar />
-            <CartItemPreview />
-            <Guide />
-            <SettingsPopover />
-            <Toast />
-            {children}
-            <div id="MODAL_CONTAINER"></div>
-          </ToastProvider>
+          <CartModal />
+          <Navbar />
+          <CartItemPreview />
+          <Guide />
+          <SettingsPopover />
+          <Toaster />
+          {children}
+          <div id="MODAL_CONTAINER"></div>
         </body>
       </html>
     </TrpcProvider>

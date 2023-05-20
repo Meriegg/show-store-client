@@ -322,9 +322,9 @@ export const AdminStoreConfigsDialogue: Dialogue = {
       content: (
         <p>
           Here you can view all store configurations. Store configurations currently control only
-          the items display on the home page's horizontal list and the shipping price. To add one
-          you can press <HighlightText>Add a configuration</HighlightText>, keep in mind that you
-          can only view the UI!
+          the items display on the home page&apos;s horizontal list and the shipping price. To add
+          one you can press <HighlightText>Add a configuration</HighlightText>, keep in mind that
+          you can only view the UI!
         </p>
       ),
       actions: {

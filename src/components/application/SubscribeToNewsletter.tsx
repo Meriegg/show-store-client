@@ -60,7 +60,7 @@ const SubscribeToNewsletter = () => {
       {error && <p className="text-sm font-semibold text-red-500 w-full text-left">{error}</p>}
       {success && (
         <p className="text-sm font-semibold text-center text-green-500 w-full">
-          Just kidding this is a demo site, you won't receive any emails... or would you?
+          Just kidding this is a demo site, you won&apos;t receive any emails... or would you?
         </p>
       )}
     </div>

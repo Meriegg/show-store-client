@@ -4,6 +4,7 @@ import { api } from "@/utils/api";
 import { faEye, faEyeSlash, faTrash } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useState } from "react";
+import { useToast } from "@/components/use-toast";
 import type { StoreConfig } from "@prisma/client";
 
 interface Props {
@@ -13,17 +14,32 @@ interface Props {
 
 const ConfigItem = ({ config, data }: Props) => {
   const [showHomeItems, setShowHomeItems] = useState(false);
+  const { toast } = useToast();
   const ctx = api.useContext();
   const makeActive = api.admin.storeConfig.setStoreConfigAsActive.useMutation({
     onSuccess: () => {
       ctx.admin.storeConfig.invalidate();
       ctx.storeConfig.invalidate();
     },
+    onError: (error) => {
+      toast({
+        title: "Error",
+        description: error.message || "Something went wrong.",
+        variant: "destructive",
+      });
+    },
   });
   const deleteConfig = api.admin.storeConfig.deleteConfig.useMutation({
     onSuccess: () => {
       ctx.admin.storeConfig.invalidate();
       ctx.storeConfig.invalidate();
+    },
+    onError: (error) => {
+      toast({
+        title: "Error",
+        description: error.message || "Something went wrong.",
+        variant: "destructive",
+      });
     },
   });
 
