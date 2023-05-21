@@ -1,6 +1,7 @@
 "use client";
 
 import clsx from "clsx";
+import DomPurify from "dompurify";
 import { usePopper } from "react-popper";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCheck, faEdit, faTrash, faXmark } from "@fortawesome/free-solid-svg-icons";
@@ -138,7 +139,9 @@ const EditableText = ({
             }}
             {...props}
           >
-            {newContent || loadedContent || children}
+            {!allowHTML
+              ? DomPurify.sanitize((newContent || loadedContent || children) as string)
+              : newContent || loadedContent || children}
           </Tag>
         )}
       </div>

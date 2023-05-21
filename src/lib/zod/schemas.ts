@@ -13,7 +13,7 @@ export const OrderDataSchema = z.object({
   lastName: z.string(),
   address: z.string(),
   addressExtras: z.string().optional(),
-  email: z.string(),
+  email: z.string().email(),
   country: z.string(),
   extraDeliveryNotes: z.string().optional(),
   paymentMode: z.union([z.literal("pay_on_delivery"), z.literal("pay_online")]),
