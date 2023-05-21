@@ -15,7 +15,7 @@ const dmSans = DM_Sans({
 });
 
 export const metadata = {
-  title: "SHOW STORE | MarioDev",
+  title: "SHOW STORE | MarioDev | E-commerce demo",
   publisher: "MarioDev",
   authors: [{ name: "MarioDev", url: "https://mariodev.vercel.app" }],
   creator: "MarioDev",

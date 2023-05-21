@@ -5,7 +5,7 @@ const CartPage = () => {
   return (
     <div className="sectionPadding flex flex-col gap-1">
       <h1 className="my-2 text-4xl font-semibold">Checkout</h1>
-      <div className="w-full flex">
+      <div className="w-full flex lg:flex lg:flex-col-reverse">
         <div className="flex-grow">
           <CartItemsDisplay />
         </div>

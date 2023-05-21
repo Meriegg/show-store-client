@@ -99,7 +99,7 @@ const CheckoutForm = () => {
       style={{
         width: "min(400px, 100%)",
       }}
-      className="p-4 border-1 border-neutral-100 rounded-md font-semibold"
+      className="p-4 border-1 border-neutral-100 rounded-md font-semibold lg:!w-full"
     >
       <h1 className="text-lg text-neutral-900">Place order!</h1>
       <form
