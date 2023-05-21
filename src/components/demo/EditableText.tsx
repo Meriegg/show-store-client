@@ -27,6 +27,7 @@ const EditableText = ({
   onMouseLeave,
   ...props
 }: Props) => {
+  const [isMounted, setIsMounted] = useState(false);
   const [newContent, setNewContent] = useState<string | null>(null);
   const [loadedContent, setLoadedContent] = useState<string | null>(null);
   const [isEditing, setEditing] = useState(false);
@@ -77,6 +78,8 @@ const EditableText = ({
   }, [newContent]);
 
   useEffect(() => {
+    setIsMounted(true);
+
     if (!storageKey) return;
 
     const val = localStorage.getItem(storageKey);
@@ -139,7 +142,7 @@ const EditableText = ({
             }}
             {...props}
           >
-            {!allowHTML
+            {!allowHTML && isMounted
               ? DomPurify.sanitize((newContent || loadedContent || children) as string)
               : newContent || loadedContent || children}
           </Tag>
