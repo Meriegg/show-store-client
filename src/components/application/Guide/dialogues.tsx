@@ -47,7 +47,10 @@ export const InitializationDialogue: Dialogue = {
           <button className="transition-all duration-300 cursor-pointer hover:shadow-md shadow-neutral-200 hover:text-neutral-900 hover:bg-neutral-200 z-50 w-[50px] h-[50px] bg-neutral-100 rounded-full text-lg text-neutral-700">
             <FontAwesomeIcon icon={faExclamation} />
           </button>
-          <p>situated on the bottom right part of the screen.</p>
+          <p>
+            situated on the bottom right part of the screen. Keep in mind that you can put me to
+            sleep by punching me in the face!
+          </p>
         </div>
       ),
       actions: {

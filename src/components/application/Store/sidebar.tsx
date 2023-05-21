@@ -89,26 +89,31 @@ export const MobileFilter = () => {
   const [isOpen, setOpen] = useState(false);
 
   return (
-    <div
-      className={clsx(
-        "hidden md:flex md:flex-col fixed bottom-0 left-0 gap-0 w-full",
-        isOpen && "-mb-4"
-      )}
-    >
-      <div className="flex items-center justify-between font-semibold border-t-[1px] border-black bg-white p-4">
+    <div className={clsx("hidden md:flex md:flex-col gap-0 w-full")}>
+      <div
+        className={clsx(
+          "flex items-center justify-between font-semibold bg-white p-4 pb-6",
+          isOpen ? "border-b-none" : "border-b-[1px] border-black"
+        )}
+      >
         <p className="text-sm text-black">Filter</p>
         <button onClick={() => setOpen(!isOpen)}>
           <FontAwesomeIcon
             icon={faChevronUp}
             className={clsx(
               "transform transition-all duration-300",
-              isOpen ? "rotate-180" : "rotate-0"
+              isOpen ? "rotate-0" : "rotate-180"
             )}
           />
         </button>
       </div>
 
-      <div className={clsx("transform", isOpen ? "scale-y-100 h-auto" : "scale-y-0 h-0")}>
+      <div
+        className={clsx(
+          "transform border-b-[1px] border-black",
+          isOpen ? "scale-y-100 h-auto" : "scale-y-0 h-0"
+        )}
+      >
         <Filter />
       </div>
     </div>

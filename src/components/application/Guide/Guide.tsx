@@ -225,12 +225,12 @@ const Guide = () => {
 
   return (
     <div
-      className="flex flex-col items-start fixed bottom-6 right-6 z-40"
+      className="flex flex-col items-start fixed bottom-6 right-6 md:bottom-0 md:right-0 z-40"
       style={{
         width: "min(400px, 100%)",
       }}
     >
-      <div>
+      <div className="pl-2">
         <img
           src="/Mascot.svg"
           alt="Mike Oxlong"
@@ -249,7 +249,7 @@ const Guide = () => {
           )}
         />
       </div>
-      <div className="px-3 py-3 w-full border-[1px] border-black rounded-lg font-semibold flex flex-col gap-2 text-sm bg-white">
+      <div className="px-3 py-3 w-full border-[1px] border-black rounded-lg md:rounded-br-none md:rounded-bl-none md:rounded-tr-none font-semibold flex flex-col gap-2 text-sm bg-white">
         <div className="flex flex-col w-full gap-1">
           <div className="flex justify-between items-center w-full">
             <p>Mike Oxlong</p>

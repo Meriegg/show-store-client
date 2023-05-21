@@ -11,7 +11,6 @@ const StorePage = () => {
       <div className="flex flex-col gap-2 w-full relative">
         <StoreTopBar />
         <StoreProducts />
-        <MobileFilter />
       </div>
     </div>
   );
