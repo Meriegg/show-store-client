@@ -55,6 +55,7 @@ const Input = ({
               error && "placeholder:text-red-500",
               className
             )}
+            required={withAsterisk}
             style={{
               borderRadius: "inherit",
             }}

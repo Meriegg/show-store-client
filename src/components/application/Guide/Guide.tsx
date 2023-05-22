@@ -51,7 +51,7 @@ export interface Dialogue {
 const Guide = () => {
   const path = usePathname();
   const [componentMounted, setComponentMounted] = useState(false);
-  const [isHoldingKnife, setHoldingKnife] = useState(false);
+  const [isHoldingKnife, setHoldingKnife] = useState(true);
   const [activeStep, setActiveStep] = useState(0);
   const [activeDialogue, setActiveDialogue] = useState<Dialogue | null>(null);
 
@@ -245,7 +245,7 @@ const Guide = () => {
           onClick={() => setHoldingKnife(false)}
           className={clsx(
             "absolute h-[65px] w-auto -top-1 transition-all duration-700 cursor-pointer",
-            isHoldingKnife ? "left-[30px] opacity-100" : "opacity-0 left-[50px]"
+            isHoldingKnife ? "left-[38px] opacity-100" : "opacity-0 left-[50px]"
           )}
         />
       </div>

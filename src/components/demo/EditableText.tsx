@@ -147,7 +147,7 @@ const EditableText = ({
           "flex items-center absolute w-auto gap-1",
           isEditing
             ? `${inputType === "textarea" ? "-bottom-8" : "-bottom-10"} left-0 z-30`
-            : "-right-2 -top-2"
+            : "-right-2 -top-2 md:right-2"
         )}
       >
         {!isEditing && (

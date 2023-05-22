@@ -74,7 +74,7 @@ const AddTypeModal = () => {
             label="Type Name"
             withAsterisk
           />
-          <Button type="submit" className="mt-2 w-full">
+          <Button loading={addType.isLoading} type="submit" className="mt-2 w-full">
             Add!
           </Button>
         </form>

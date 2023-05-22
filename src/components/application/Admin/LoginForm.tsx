@@ -63,7 +63,7 @@ const AdminLogin = () => {
       style={{
         width: "min(450px, 100%)",
       }}
-      className="m-auto mt-12 text-center"
+      className="m-auto mt-12 text-center md:px-2"
     >
       {error && (
         <Alert
