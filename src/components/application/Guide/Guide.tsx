@@ -51,7 +51,7 @@ export interface Dialogue {
 const Guide = () => {
   const path = usePathname();
   const [componentMounted, setComponentMounted] = useState(false);
-  const [isHoldingKnife, setHoldingKnife] = useState(true);
+  const [isHoldingKnife, setHoldingKnife] = useState(false);
   const [activeStep, setActiveStep] = useState(0);
   const [activeDialogue, setActiveDialogue] = useState<Dialogue | null>(null);
 
