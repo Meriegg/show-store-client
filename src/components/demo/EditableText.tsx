@@ -33,13 +33,7 @@ const EditableText = ({
   const [isEditing, setEditing] = useState(false);
   const [inputWidth, setInputWidth] = useState<number | null>(null);
   const [showEditButton, setShowEditButton] = useState(false);
-  const [referenceElement, setReferenceElement] = useState<HTMLDivElement | null>(null);
-  const [popperElement, setPopperElement] = useState<HTMLDivElement | null>(null);
   const widthTrackElementRef = useRef<null | HTMLParagraphElement>(null);
-  const { styles, attributes } = usePopper(referenceElement, popperElement, {
-    placement: "top-end",
-    strategy: "fixed",
-  });
 
   const cancelChanges = () => {
     setNewContent(null);
@@ -100,7 +94,7 @@ const EditableText = ({
       >
         {newContent}
       </p>
-      <div ref={setReferenceElement}>
+      <div>
         {isEditing && (
           <>
             {inputType !== "textarea" ? (
@@ -149,10 +143,12 @@ const EditableText = ({
         )}
       </div>
       <div
-        className="flex items-center w-auto gap-1"
-        ref={setPopperElement}
-        style={styles.popper}
-        {...attributes.popper}
+        className={clsx(
+          "flex items-center absolute w-auto gap-1",
+          isEditing
+            ? `${inputType === "textarea" ? "-bottom-8" : "-bottom-10"} left-0 z-30`
+            : "-right-2 -top-2"
+        )}
       >
         {!isEditing && (
           <button
