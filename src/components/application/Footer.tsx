@@ -1,5 +1,6 @@
 import { faEnvelope } from "@fortawesome/free-solid-svg-icons";
 import { faGithub, faInstagram } from "@fortawesome/free-brands-svg-icons";
+import { EMAIL_LINK, GITHUB_LINK, INSTAGRAM_LINK } from "@mariodev14/socials";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 const Footer = () => {
@@ -14,22 +15,13 @@ const Footer = () => {
       <p className="font-semibold text-sm text-neutral-600">&copy; 2023 All rights reserved.</p>
       <div className="h-[1px] w-full bg-neutral-300"></div>
       <div className="flex gap-4 justify-center items-center w-full px-2">
-        <a
-          href="mailto://mario.developer.contact@gmail.com"
-          className="text-lg text-neutral-600 hover:text-neutral-900"
-        >
+        <a href={EMAIL_LINK} className="text-lg text-neutral-600 hover:text-neutral-900">
           <FontAwesomeIcon icon={faEnvelope} />
         </a>
-        <a
-          href="https://github.com/Meriegg"
-          className="text-lg text-neutral-600 hover:text-neutral-900"
-        >
+        <a href={GITHUB_LINK} className="text-lg text-neutral-600 hover:text-neutral-900">
           <FontAwesomeIcon icon={faGithub} />
         </a>
-        <a
-          href="https://www.instagram.com/meriofrog/"
-          className="text-lg text-neutral-600 hover:text-neutral-900"
-        >
+        <a href={INSTAGRAM_LINK} className="text-lg text-neutral-600 hover:text-neutral-900">
           <FontAwesomeIcon icon={faInstagram} />
         </a>
         <div className="h-full border-l-[2px] border-neutral-300"></div>

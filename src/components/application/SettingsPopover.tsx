@@ -4,6 +4,7 @@ import { Popover, PopoverContent, PopoverTrigger } from "../popover";
 import { faCode, faEnvelope, faGear } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useEffect, useState } from "react";
+import { GITHUB_LINK, EMAIL_LINK, INSTAGRAM_LINK } from "@mariodev14/socials";
 import Button from "../Button";
 import Link from "next/link";
 import { faGithub, faInstagram } from "@fortawesome/free-brands-svg-icons";
@@ -44,21 +45,21 @@ const SettingsPopover = () => {
         </div>
         <div className="flex items-center gap-4 justify-center flex-wrap">
           <a
-            href="mailto://mario.developer.contact@gmail.com"
+            href={EMAIL_LINK}
             className="text-lg text-neutral-600 hover:text-neutral-900 flex items-center gap-2"
           >
             <FontAwesomeIcon icon={faEnvelope} />
             <span className="text-sm">Email</span>
           </a>
           <a
-            href="https://github.com/Meriegg"
+            href={GITHUB_LINK}
             className="text-lg text-neutral-600 hover:text-neutral-900 flex items-center gap-2"
           >
             <FontAwesomeIcon icon={faGithub} />
             <span className="text-sm">Github</span>
           </a>
           <a
-            href="https://www.instagram.com/meriofrog/"
+            href={INSTAGRAM_LINK}
             className="text-lg text-neutral-600 hover:text-neutral-900 flex items-center gap-2"
           >
             <FontAwesomeIcon icon={faInstagram} />

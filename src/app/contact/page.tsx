@@ -1,3 +1,5 @@
+import { WEBSITE_CONTACT_LINK } from "@mariodev14/socials";
+
 const Contact = () => {
   return (
     <div className="sectionPadding">
@@ -10,7 +12,7 @@ const Contact = () => {
       <p className="font-semibold text-lg text-center">
         If you wish to contact me you can{" "}
         <a
-          href="https://mariodev.vercel.app/contact"
+          href={WEBSITE_CONTACT_LINK}
           referrerPolicy="no-referrer"
           target="_blank"
           className="text-red-600 hover:underline"
